@@ -22,7 +22,7 @@ cd texedbook
 
 2. Create a virtual environment to work in by running
 
-python -m venv venv
+python3 -m venv venv
 source venv/bin/activate
 
 3. Install required packages by running

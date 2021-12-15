@@ -202,7 +202,6 @@ Css: #TBL-3 colgroup{border-left: 1px solid black;border-right:1px solid black;}
 Css: #TBL-3{border-collapse:collapse;}
 Css: #TBL-3 colgroup{border-left: 1px solid black;border-right:1px solid black;}
 Css: #TBL-3{border-collapse:collapse;}
-l. 22 --- needs --- "rungs -q -dNOPAUSE -dBATCH -dusecropbox -sDEVICE=pngalpha -r300  -sOutputFile="test-fig-.png" "test-fig.pdf" " ---
 File: test-fig-.png
 --- characters ---
 Font("cmex","10","10","100")
