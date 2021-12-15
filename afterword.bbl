@@ -1,0 +1,16 @@
+\begin{thebibliography}{xx}
+
+\harvarditem{Lim}{2016}{markdown:overleaf}
+Lim, L.~T.  \harvardyearleft 2016\harvardyearright .
+\newblock How to write in {M}arkdown on {O}verleaf.
+\newline\harvardurl{https://www.overleaf.com/blog/441-how-to-write-in-markdown-on-overleaf}
+
+\harvarditem[Lim et~al.]{Lim, Chiew, Tang, Rusli \harvardand\
+  Naimah}{2016}{lim:etal:kdtei:2016}
+Lim, L.~T., Chiew, R.~T., Tang, E.~K., Rusli, A.~G. \harvardand\ Naimah, Y.
+  \harvardyearleft 2016\harvardyearright .
+\newblock Digitising a machine-tractable version of {K}amus {D}ewan with
+  \textsc{tei-p5}, {\em PeerJ Preprints} {\bf 4}:~e2205v1.
+\newline\harvardurl{https://doi.org/10.7287/peerj.preprints.2205v1}
+
+\end{thebibliography}

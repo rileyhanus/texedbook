@@ -1,0 +1,98 @@
+\documentclass[11pt,oneside]{book}
+\usepackage[T1]{fontenc}
+%\usepackage[utf8]{inputenc}
+\usepackage[a4paper]{geometry}
+\usepackage[sectionbib]{natbib}
+\usepackage{chapterbib}
+\usepackage{graphicx}
+\usepackage{hyperref}
+%%% Uncomment if you change the bibliography heading/title
+% \renewcommand{\bibname}{References}
+
+%%% Uncomment if you want to include the bibliographies at the end of each chapter in the table of contents.  
+% \usepackage[nottoc]{tocbibind}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% 'dedication' environment: To add a dedication paragraph at the start of book %
+% Source: http://www.tug.org/pipermail/texhax/2010-June/015184.html            %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newenvironment{dedication}
+{
+   \cleardoublepage
+   \thispagestyle{empty}
+   \vspace*{\stretch{1}}
+   \hfill\begin{minipage}[t]{0.66\textwidth}
+   \raggedright
+}
+{
+   \end{minipage}
+   \vspace*{\stretch{3}}
+   \clearpage
+}
+
+
+
+\newenvironment{calchub_env}
+    {\begin{center}
+    \begin{tabular}{|p{0.9\textwidth}|}
+    \hline
+    Multimedia content: CalcHub Workspace\\
+    \hline\\
+    }
+    { 
+    \\\\\hline
+    \end{tabular} 
+    \end{center}
+    }
+
+\newcommand{\calchub}[2]{ 
+   % 1st input: display name 
+   % 2nd input: href
+   \begin{calchub_env}
+      \href{#2}{#1}
+   \end{calchub_env}
+} 
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Chapter quote at the start of chapter        %
+% Source: http://tex.stackexchange.com/a/53380 %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\makeatletter
+\renewcommand{\@chapapp}{}% Not necessary...
+\newenvironment{chapquote}[2][2em]
+  {\setlength{\@tempdima}{#1}%
+   \def\chapquote@author{#2}%
+   \parshape 1 \@tempdima \dimexpr\textwidth-2\@tempdima\relax%
+   \itshape}
+  {\par\normalfont\hfill--\ \chapquote@author\hspace*{\@tempdima}\par\bigskip}
+\makeatother
+
+%%%%%%%%%%%%%%
+% Title Page %
+%%%%%%%%%%%%%%
+
+% Book's title and subtitle
+\title{\Huge \textbf{Texedbook}}
+% Authors
+\author{\textsc{Riley Hanus}}
+
+\begin{document}
+\frontmatter
+\maketitle
+
+\chapter*{Abstract}
+This is \emph{not} a full thesis template! It only demonstrates how to create per-chapter references using the \texttt{chapterbib} package with BibTeX. (Do not use with BibLaTeX!)
+
+Each chapter must be in its own \texttt{.tex} file and \texttt{include}-d into the main \texttt{.tex} file. If compiling on your own machine, run \texttt{bibtex} on \emph{each} generated \texttt{.aux} file, before running \texttt{pdflatex} twice more. (These are done automatically on Overleaf.)
+
+\tableofcontents
+
+\mainmatter
+\include{chap1}
+\include{chap2}
+
+\backmatter
+\include{afterword}
+
+\end{document}

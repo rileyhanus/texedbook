@@ -1,0 +1,96 @@
+
+   <?xml version="1.0" encoding="utf-8"?> 
+ <!DOCTYPE ncx PUBLIC "-//NISO//DTD ncx 2005-1//EN" 
+"http://www.daisy.org/z3986/2005/ncx-2005-1.dtd"> 
+ <ncx xmlns="http://www.daisy.org/z3986/2005/ncx/" version="2005-1">                                                                                  <head> 
+
+<meta name="dtb:uid" content="http://example.com/main"/> 
+ <meta name="dtb:depth" content="3"/> 
+ <meta name="dtb:totalPageCount" content="0"/> 
+ <meta name="dtb:maxPageNumber" content="0"/> 
+ </head> 
+ <docTitle> 
+<text>Texedbook</text> 
+</docTitle> 
+ <navMap>      
+<navPoint id="navPoint-1" playOrder="1"> 
+<navLabel> 
+<text><navmark type="likechapter">  </navmark> Abstract</text> 
+</navLabel> 
+<content src="mainli1.html#x2-1000" />  </navPoint> 
+
+ 
+<navPoint id="navPoint-2" playOrder="2"> 
+<navLabel> 
+<text><navmark type="likechapter">  </navmark> Contents</text> 
+</navLabel> 
+<content src="mainli2.html#x3-2000" />  </navPoint> 
+      
+<navPoint id="navPoint-3" playOrder="3"> 
+<navLabel> 
+<text><navmark type="chapter">  1</navmark> First Test
+Chapter</text> 
+</navLabel> 
+<content src="mainch1.html#x4-30001" />       
+<navPoint id="navPoint-4" playOrder="4"> 
+<navLabel> 
+<text><navmark type="section">  1.1</navmark> Test features 1</text> 
+</navLabel> 
+<content src="mainch1.html#x4-40001.1" />
+ 
+<navPoint id="navPoint-5" playOrder="5"> 
+<navLabel> 
+<text><navmark type="subsection">  1.1.1</navmark> Lists</text> 
+</navLabel> 
+<content src="mainch1.html#x4-50001.1.1" />  </navPoint> 
+      
+<navPoint id="navPoint-6" playOrder="6"> 
+<navLabel> 
+<text><navmark type="subsection">  1.1.2</navmark> Table</text> 
+</navLabel> 
+<content src="mainch1.html#x4-80001.1.2" />  </navPoint> 
+</navPoint> 
+
+ 
+<navPoint id="navPoint-7" playOrder="7"> 
+<navLabel> 
+<text><navmark type="likesection">  </navmark> Bibliography</text> 
+</navLabel> 
+<content src="mainch1.html#x4-90001.1.2" />  </navPoint> 
+</navPoint> 
+      
+<navPoint id="navPoint-8" playOrder="8"> 
+<navLabel> 
+<text><navmark type="chapter">  2</navmark> Second
+Test Chapter</text> 
+</navLabel> 
+<content src="mainch2.html#x5-100002" />       
+<navPoint id="navPoint-9" playOrder="9"> 
+<navLabel> 
+<text><navmark type="section">  2.1</navmark> Equations</text> 
+</navLabel> 
+<content src="mainch2.html#x5-110002.1" />  </navPoint> 
+
+ 
+<navPoint id="navPoint-10" playOrder="10"> 
+<navLabel> 
+<text><navmark type="section"> 2.2</navmark> Figure</text> 
+</navLabel> 
+<content src="mainch2.html#x5-120002.2" /> </navPoint> 
+     
+<navPoint id="navPoint-11" playOrder="11"> 
+<navLabel> 
+<text><navmark type="likesection"> </navmark> Bibliography</text> 
+</navLabel> 
+<content src="mainch2.html#x5-130002.2" />
+</navPoint> 
+</navPoint> 
+        
+<navPoint id="navPoint-12" playOrder="12"> 
+<navLabel> 
+<text><navmark type="likechapter">  </navmark> Additional Reading</text> 
+</navLabel> 
+<content src="mainli3.html#x6-140002.2" />
+   </navPoint> 
+</navMap>
+   </ncx> 

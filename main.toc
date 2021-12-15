@@ -1,0 +1,15 @@
+\gdef \the@ipfilectr {@-1}
+\contentsline {chapter}{\numberline {1}First Test Chapter}{1}{chapter.1}%
+\contentsline {section}{\numberline {1.1}Test features 1}{1}{section.1.1}%
+\contentsline {subsection}{\numberline {1.1.1}Lists}{1}{subsection.1.1.1}%
+\contentsline {subsubsection}{Numbered list}{1}{section*.3}%
+\contentsline {subsubsection}{Bulleted list}{2}{section*.4}%
+\contentsline {subsection}{\numberline {1.1.2}Table}{2}{subsection.1.1.2}%
+\gdef \the@ipfilectr {}
+\gdef \the@ipfilectr {@-2}
+\contentsline {chapter}{\numberline {2}Second Test Chapter}{3}{chapter.2}%
+\contentsline {section}{\numberline {2.1}Equations}{3}{section.2.1}%
+\contentsline {section}{\numberline {2.2}Figure}{3}{section.2.2}%
+\gdef \the@ipfilectr {}
+\gdef \the@ipfilectr {@-3}
+\gdef \the@ipfilectr {}

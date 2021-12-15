@@ -1,0 +1,49 @@
+<?xml version='1.0' encoding='utf-8'?>
+<package unique-identifier='dcidid'
+xmlns='http://www.idpf.org/2007/opf' version='2.0'>
+  <metadata xmlns:dc='http://purl.org/dc/elements/1.1/'
+  xmlns:opf='http://www.idpf.org/2007/opf'>
+    <dc:title>Texedbook</dc:title>
+    <dc:language>en-US</dc:language>
+    <dc:identifier opf:scheme='URI' id='dcidid'>
+    http://example.com/main</dc:identifier>
+    <dc:creator>Riley Hanus</dc:creator>
+    <dc:date>2021-12-14T20:51:00Z</dc:date>
+  </metadata>
+  <manifest>
+    <item id='ncx' href='main.ncx'
+    media-type='application/x-dtbncx+xml'></item>
+    <item id='stylesheet' href='main.css' media-type='text/css'>
+    </item>
+    <item id='file1' href='main.html'
+    media-type='application/xhtml+xml'></item>
+    <item id='file2' href='mainli1.html'
+    media-type='application/xhtml+xml'></item>
+    <item id='file3' href='mainli2.html'
+    media-type='application/xhtml+xml'></item>
+    <item id='file4' href='mainch1.html'
+    media-type='application/xhtml+xml'></item>
+    <item id='file5' href='mainch2.html'
+    media-type='application/xhtml+xml'></item>
+    <item id='file6' href='mainli3.html'
+    media-type='application/xhtml+xml'></item>
+    <item id='test-fig-_png' href='test-fig-.png'
+    media-type='image/png'></item>
+    <item id='main0x_svg' href='main0x.svg'
+    media-type='image/svg+xml'></item>
+    <item id='main1x_svg' href='main1x.svg'
+    media-type='image/svg+xml'></item>
+    <item id='main2x_svg' href='main2x.svg'
+    media-type='image/svg+xml'></item>
+    <item id='main3x_svg' href='main3x.svg'
+    media-type='image/svg+xml'></item>
+  </manifest>
+  <spine toc='ncx'>
+    <itemref idref='file1'></itemref>
+    <itemref idref='file2'></itemref>
+    <itemref idref='file3'></itemref>
+    <itemref idref='file4'></itemref>
+    <itemref idref='file5'></itemref>
+    <itemref idref='file6'></itemref>
+  </spine>
+</package>

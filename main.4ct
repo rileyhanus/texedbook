@@ -1,0 +1,18 @@
+\expandafter\ifx\csname doTocEntry\endcsname\relax \expandafter\endinput\fi 
+\doTocEntry\toclikechapter{}{\csname a:TocLink\endcsname{2}{x2-1000}{QQ2-2-1}{Abstract}}{2}\relax 
+\doTocEntry\toclikechapter{}{\csname a:TocLink\endcsname{3}{x3-2000}{QQ2-3-2}{Contents}}{4}\relax 
+\doTocEntry\tocchapter{1}{\csname a:TocLink\endcsname{4}{x4-30001}{QQ2-4-3}{First Test Chapter}}{5}\relax 
+\doTocEntry\tocsection{1.1}{\csname a:TocLink\endcsname{4}{x4-40001.1}{QQ2-4-4}{Test features 1}}{5}\relax 
+\doTocEntry\tocsubsection{1.1.1}{\csname a:TocLink\endcsname{4}{x4-50001.1.1}{QQ2-4-5}{Lists}}{5}\relax 
+\doTocEntry\tocsubsubsection{}{\csname a:TocLink\endcsname{4}{x4-60001.1.1}{QQ2-4-6}{Numbered list}}{5}\relax 
+\doTocEntry\tocsubsubsection{}{\csname a:TocLink\endcsname{4}{x4-70001.1.1}{QQ2-4-7}{Bulleted list}}{6}\relax 
+\doTocEntry\tocsubsection{1.1.2}{\csname a:TocLink\endcsname{4}{x4-80001.1.2}{QQ2-4-8}{Table}}{6}\relax 
+\doTocEntry\toclot{1.1}{\csname a:TocLink\endcsname{4}{x4-80011}{}{\ignorespaces Sample table}}{table}\relax 
+\doTocEntry\toclikesection{}{\csname a:TocLink\endcsname{4}{x4-90001.1.2}{QQ2-4-10}{Bibliography}}{9}\relax 
+\doTocEntry\tocchapter{2}{\csname a:TocLink\endcsname{5}{x5-100002}{QQ2-5-11}{Second Test Chapter}}{15}\relax 
+\doTocEntry\tocsection{2.1}{\csname a:TocLink\endcsname{5}{x5-110002.1}{QQ2-5-12}{Equations}}{15}\relax 
+\doTocEntry\tocsection{2.2}{\csname a:TocLink\endcsname{5}{x5-120002.2}{QQ2-5-13}{Figure}}{16}\relax 
+\doTocEntry\toclof{2.1}{\csname a:TocLink\endcsname{5}{x5-120011}{}{\ignorespaces Figure Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis risus ante, auctor et pulvinar non, posuere ac lacus. Praesent egestas nisi id metus rhoncus ac lobortis sem hendrerit.}}{figure}\relax 
+\doTocEntry\toclikesection{}{\csname a:TocLink\endcsname{5}{x5-130002.2}{QQ2-5-15}{Bibliography}}{19}\relax 
+\doTocEntry\toclikechapter{}{\csname a:TocLink\endcsname{6}{x6-140002.2}{QQ2-6-16}{Additional Reading}}{26}\relax 
+\par 

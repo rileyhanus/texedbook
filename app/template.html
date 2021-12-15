@@ -1,0 +1,15 @@
+<html>
+    <body>
+        <%
+        from random import randint
+        numbers = [randint(1,10), for _ in range(10)]
+        %>
+
+        <ul>
+            % for n in numbers:
+            <li>${n}</li>
+            % endfor
+        </ul>
+    
+    </body>
+</html>
