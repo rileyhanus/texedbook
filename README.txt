@@ -11,28 +11,42 @@ The input of this package is a latex document that compiles with no errors. The 
 
 Within template.py, ebooklib is used to parse the .epub file and build objects containing all of the content. Beautiful soup 4 is used for some html parsing. Jinja2 is used for html templating. 
 
-Directions:
 
-1. Create a virtual environment to work in by running
+Set up your project:
+Follow these steps to set up your texedbook project.
+
+1. Clone the repository to your computer and navigate into it by running (you will need to have permissions)
+
+git clone https://github.com/rileyhanus/texedbook.git
+cd texedbook
+
+2. Create a virtual environment to work in by running
 
 python -m venv venv
 source venv/bin/activate
 
-2. Install required packages by running
+3. Install required packages by running
 
 pip install -r requirements.txt
 
-3. Make sure your main.tex document is finished and compiles without errors, follow these steps to convert it into an html-based interactive learning environment. To Compile main.tex, I recommend using VSCode with the 'Tex Workshop' plugin installed. You can compile by simply saving any .tex file.
+4. Make sure your main.tex document is finished and compiles without errors.  To Compile main.tex, I recommend using VSCode with the 'Tex Workshop' plugin installed. You can compile by simply saving any .tex file.
 
-4. Make sure every figure.pdf has a corresponding figure.xbb by executing the following in the terminal. 
+5. Make sure every figure.pdf has a corresponding figure.xbb by executing the following in the terminal. 
 
 ebb -x *.pdf
 
-5. Create your main.epub file along with the corresponding .html files for all the Chapters by running the following command in the terminal.
+6. Create your main.epub file along with the corresponding .html files for all the Chapters by running the following command in the terminal.
 
 tex4ebook -c config.cfg main.tex
 
-6. Extract the html and navigation meta-data, and template the content onto template.html which renders the interactive learning environment.
+7. Extract the html and navigation meta-data, and template the content onto template.html which renders the interactive learning environment.
 
-7. Open an of the the templated html files to view the html-based learning environment.
+python template.py
+
+8. Open an of the the templated html files to view the html-based learning environment.
+
+
+Editing your project:
+
+After making changes to any of your .tex files run step 6 and 7 from "Set up your project" and the .html files will be updated. If you add a new pdf figure you will need to run step 5 as well.
 
