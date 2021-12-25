@@ -1,41 +1,41 @@
 <?xml version='1.0' encoding='utf-8'?>
-<package version='2.0' xmlns='http://www.idpf.org/2007/opf'
-unique-identifier='dcidid'>
+<package version='2.0' unique-identifier='dcidid'
+xmlns='http://www.idpf.org/2007/opf'>
   <metadata xmlns:dc='http://purl.org/dc/elements/1.1/'
   xmlns:opf='http://www.idpf.org/2007/opf'>
     <dc:title>Texedbook</dc:title>
     <dc:language>en-US</dc:language>
-    <dc:identifier id='dcidid' opf:scheme='URI'>
+    <dc:identifier opf:scheme='URI' id='dcidid'>
     http://example.com/main</dc:identifier>
     <dc:creator>Riley Hanus</dc:creator>
-    <dc:date>2021-12-15T09:20:00Z</dc:date>
+    <dc:date>2021-12-25T12:59:00Z</dc:date>
   </metadata>
   <manifest>
-    <item href='main.ncx' media-type='application/x-dtbncx+xml'
+    <item media-type='application/x-dtbncx+xml' href='main.ncx'
     id='ncx'></item>
-    <item href='main.css' media-type='text/css' id='stylesheet'>
+    <item media-type='text/css' href='main.css' id='stylesheet'>
     </item>
-    <item href='main.html' media-type='application/xhtml+xml'
+    <item media-type='application/xhtml+xml' href='main.html'
     id='file1'></item>
-    <item href='mainli1.html' media-type='application/xhtml+xml'
+    <item media-type='application/xhtml+xml' href='mainli1.html'
     id='file2'></item>
-    <item href='mainli2.html' media-type='application/xhtml+xml'
+    <item media-type='application/xhtml+xml' href='mainli2.html'
     id='file3'></item>
-    <item href='mainch1.html' media-type='application/xhtml+xml'
+    <item media-type='application/xhtml+xml' href='mainch1.html'
     id='file4'></item>
-    <item href='mainch2.html' media-type='application/xhtml+xml'
+    <item media-type='application/xhtml+xml' href='mainch2.html'
     id='file5'></item>
-    <item href='mainli3.html' media-type='application/xhtml+xml'
+    <item media-type='application/xhtml+xml' href='mainli3.html'
     id='file6'></item>
-    <item href='test-fig-.png' media-type='image/png'
+    <item media-type='image/png' href='test-fig-.png'
     id='test-fig-_png'></item>
-    <item href='main0x.svg' media-type='image/svg+xml'
+    <item media-type='image/svg+xml' href='main0x.svg'
     id='main0x_svg'></item>
-    <item href='main1x.svg' media-type='image/svg+xml'
+    <item media-type='image/svg+xml' href='main1x.svg'
     id='main1x_svg'></item>
-    <item href='main2x.svg' media-type='image/svg+xml'
+    <item media-type='image/svg+xml' href='main2x.svg'
     id='main2x_svg'></item>
-    <item href='main3x.svg' media-type='image/svg+xml'
+    <item media-type='image/svg+xml' href='main3x.svg'
     id='main3x_svg'></item>
   </manifest>
   <spine toc='ncx'>

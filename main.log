@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.22 (TeX Live 2021) (preloaded format=latex 2021.4.22)  15 DEC 2021 09:20
+This is pdfTeX, Version 3.141592653-2.6-1.40.22 (TeX Live 2021) (preloaded format=latex 2021.4.22)  25 DEC 2021 12:59
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -589,24 +589,24 @@ File: l3backend-dvips.def 2021-03-18 L3 backend support: dvips
 ) (./main.aux (./chap1.aux) (./chap2.aux) (./afterword.aux))
 \openout1 = `main.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 15.
-LaTeX Font Info:    ... okay on input line 15.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 15.
-LaTeX Font Info:    ... okay on input line 15.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 15.
-LaTeX Font Info:    ... okay on input line 15.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 15.
-LaTeX Font Info:    ... okay on input line 15.
-LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 15.
-LaTeX Font Info:    ... okay on input line 15.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 15.
-LaTeX Font Info:    ... okay on input line 15.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 15.
-LaTeX Font Info:    ... okay on input line 15.
-LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 15.
-LaTeX Font Info:    ... okay on input line 15.
-LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 15.
-LaTeX Font Info:    ... okay on input line 15.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 21.
+LaTeX Font Info:    ... okay on input line 21.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 21.
+LaTeX Font Info:    ... okay on input line 21.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 21.
+LaTeX Font Info:    ... okay on input line 21.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 21.
+LaTeX Font Info:    ... okay on input line 21.
+LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 21.
+LaTeX Font Info:    ... okay on input line 21.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 21.
+LaTeX Font Info:    ... okay on input line 21.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 21.
+LaTeX Font Info:    ... okay on input line 21.
+LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 21.
+LaTeX Font Info:    ... okay on input line 21.
+LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 21.
+LaTeX Font Info:    ... okay on input line 21.
 *geometry* driver: auto-detecting
 *geometry* detected driver: dvips
 *geometry* verbose mode - [ preamble ] result:
@@ -641,10 +641,10 @@ LaTeX Font Info:    ... okay on input line 15.
 * \@reversemarginfalse
 * (1in=72.27pt=25.4mm, 1cm=28.453pt)
 
-Package hyperref Info: Link coloring ON on input line 15.
-LaTeX Info: Redefining \ref on input line 15.
-LaTeX Info: Redefining \pageref on input line 15.
-LaTeX Info: Redefining \nameref on input line 15.
+Package hyperref Info: Link coloring ON on input line 21.
+LaTeX Info: Redefining \ref on input line 21.
+LaTeX Info: Redefining \pageref on input line 21.
+LaTeX Info: Redefining \nameref on input line 21.
 --- file main.css ---
 ) [1
 
@@ -654,15 +654,15 @@ LaTeX Info: Redefining \nameref on input line 15.
 
 ]
 LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <12> on input line 82.
+(Font)              <12> on input line 113.
 LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <8> on input line 82.
+(Font)              <8> on input line 113.
 LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <6> on input line 82.
+(Font)              <6> on input line 113.
 [1] [1]
 --- file mainli1.html ---
-LaTeX Font Info:    Trying to load font information for T1+cmtt on input line 8
-4.
+LaTeX Font Info:    Trying to load font information for T1+cmtt on input line 1
+15.
 (/usr/local/texlive/2021/texmf-dist/tex/latex/base/t1cmtt.fd
 File: t1cmtt.fd 2019/12/16 v2.5j Standard LaTeX font definitions
 ) [2
@@ -693,43 +693,41 @@ File: t1cmtt.fd 2019/12/16 v2.5j Standard LaTeX font definitions
 
 ]
 LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <10.95> on input line 52.
-l. 55 Writing main.idv[1] (main0x.svg)
+(Font)              <10.95> on input line 51.
+l. 54 Writing main.idv[1] (main0x.svg)
 [8
+
+] [9
 
 ] (./chap1.bbl
 l. 7 Writing main.idv[2] (main1x.svg)
-)) [9
-
-] [10
-
-] [11
+)) [10] [11
 
 ] [12
+
+] [13
 
 ]
 \openout2 = `chap2.aux'.
 
-(./chap2.tex [13
+(./chap2.tex [14
 
-] [14
+] [15
 
 ]
  2.
 --- file mainch2.html ---
 l. 4 Writing main.idv[3] (main2x.svg)
 l. 7 Writing main.idv[4] (main3x.svg)
-[15
+[16
 
-] [16] [17
+] [17] [18
 
 ]
-l. 21 --- needs --- test-fig-.png ---
-[18
+l. 18 --- needs --- test-fig-.png ---
+[19
 
-] (./chap2.bbl)) [19
-
-] [20
+] (./chap2.bbl)) [20
 
 ] [21
 
@@ -737,31 +735,33 @@ l. 21 --- needs --- test-fig-.png ---
 
 ] [23
 
+] [24
+
 ]
 \openout2 = `afterword.aux'.
 
-(./afterword.tex [24
+(./afterword.tex [25
 
-] [25
+] [26
 
 ]
 --- file mainli3.html ---
-(./afterword.bbl)) [26
+(./afterword.bbl)) [27
 
-] [27
+] [28
 
-] (./main.4ct) [28
+] (./main.4ct) [29
 
-] [29
+] [30
 
 ] (./main.aux (./chap1.aux) (./chap2.aux) (./afterword.aux)) ) 
 Here is how much of TeX's memory you used:
- 13283 strings out of 478995
- 186896 string characters out of 5858210
- 612806 words of memory out of 5000000
- 30415 multiletter control sequences out of 15000+600000
+ 13310 strings out of 478995
+ 187139 string characters out of 5858210
+ 613957 words of memory out of 5000000
+ 30442 multiletter control sequences out of 15000+600000
  417403 words of font info for 54 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  90i,9n,114p,1581b,568s stack positions out of 5000i,500n,10000p,200000b,80000s
 
-Output written on main.dvi (37 pages, 54096 bytes).
+Output written on main.dvi (38 pages, 62464 bytes).

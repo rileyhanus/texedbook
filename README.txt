@@ -41,8 +41,9 @@ tex4ebook -c config.cfg main.tex
 
 7. Extract the html and navigation meta-data, and template the content onto template.html which renders the interactive learning environment.
 
-python template.py
-
+tex4ebook -c config.cfg main.tex
+python make_texedbook.py
+ 
 8. Open an of the the templated html files to view the html-based learning environment.
 
 

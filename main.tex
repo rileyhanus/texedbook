@@ -32,28 +32,6 @@
 }
 
 
-
-\newenvironment{calchub_env}
-    {\begin{center}
-    \begin{tabular}{|p{0.9\textwidth}|}
-    \hline
-    Multimedia content: CalcHub Workspace\\
-    \hline\\
-    }
-    { 
-    \\\\\hline
-    \end{tabular} 
-    \end{center}
-    }
-
-\newcommand{\calchub}[2]{ 
-   % 1st input: display name 
-   % 2nd input: href
-   \begin{calchub_env}
-      \href{#2}{#1}
-   \end{calchub_env}
-} 
-
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Chapter quote at the start of chapter        %
 % Source: http://tex.stackexchange.com/a/53380 %
@@ -67,6 +45,59 @@
    \itshape}
   {\par\normalfont\hfill--\ \chapquote@author\hspace*{\@tempdima}\par\bigskip}
 \makeatother
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% calchub environment: for embedding a calchub workspace                       %
+% texedbook compatible: html=embedded work space, pdf=multimedia box w/ href   %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newenvironment{calchub}
+    {\begin{center}
+    \begin{tabular}{|p{0.9\textwidth}|}
+    \hline
+    Multimedia content: CalcHub Workspace\\
+    \hline\\
+    }
+    { 
+    \\\\\hline
+    \end{tabular} 
+    \end{center}
+    }
+
+\newcommand{\InsertCalchubWorkspace}[2]{ 
+   % 1st input: display name 
+   % 2nd input: href
+   \begin{calchub}
+      \href{#2}{#1}
+   \end{calchub}
+} 
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% video environment: for embedding videos                                      %
+% texedbook compatible: html=embedded video, pdf=multimedia box w/ href        %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newenvironment{youtube}
+    {\begin{center}
+    \begin{tabular}{|p{0.9\textwidth}|}
+    \hline
+    Multimedia content: YouTube Video\\
+    \hline\\
+    }
+    { 
+    \\\\\hline
+    \end{tabular} 
+    \end{center}
+    }
+
+\newcommand{\InsertYoutubeVideo}[2]{ 
+   % 1st input: display name 
+   % 2nd input: href
+   \begin{youtube}
+      \href{#2}{#1}
+   \end{youtube}
+} 
+
 
 %%%%%%%%%%%%%%
 % Title Page %

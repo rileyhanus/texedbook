@@ -1,7 +1,5 @@
 htfcss: eccc1000 font-variant: small-caps;
 htfcss: eccc1000 font-variant: small-caps;
-htfcss: cmmi font-style: italic;
-htfcss: cmmib font-style: italic; font-weight: bold;
 htfcss: ecbx  font-weight: bold;
 htfcss: ecsx  font-weight: bold;
 htfcss: ecbi  font-weight: bold;   font-style: italic;
@@ -10,6 +8,8 @@ htfcss: ecss  font-family: sans-serif;
 htfcss: ecff  font-family: fantasy;
 htfcss: ecti  font-style: italic;
 htfcss: ectt  font-family: monospace,monospace;
+htfcss: cmmi font-style: italic;
+htfcss: cmmib font-style: italic; font-weight: bold;
 htfcss: ecbx  font-weight: bold;
 htfcss: ecsx  font-weight: bold;
 htfcss: ecbi  font-weight: bold;   font-style: italic;
@@ -195,13 +195,21 @@ Css:  .likesubsectionToc, .subsectionToc {margin-left:0em;}
 Css:  .likesubsectionToc ~ .subsubsectionToc, .subsectionToc ~ .subsubsectionToc {margin-left:2em;}
 Css: .rotatebox{display: inline-block;}
 --- needs --- main.idv[2] ==> main0x.svg ---
+Css: #TBL-3 colgroup{border-left: 1px solid black;border-right:1px solid black;}
+Css: #TBL-3{border-collapse:collapse;}
+Css: #TBL-3 colgroup{border-left: 1px solid black;border-right:1px solid black;}
+Css: #TBL-3{border-collapse:collapse;}
+Css: #TBL-4 colgroup{border-left: 1px solid black;border-right:1px solid black;}
+Css: #TBL-4{border-collapse:collapse;}
+Css: #TBL-4 colgroup{border-left: 1px solid black;border-right:1px solid black;}
+Css: #TBL-4{border-collapse:collapse;}
+Css: #TBL-5 colgroup{border-left: 1px solid black;border-right:1px solid black;}
+Css: #TBL-5{border-collapse:collapse;}
+Css: #TBL-5 colgroup{border-left: 1px solid black;border-right:1px solid black;}
+Css: #TBL-5{border-collapse:collapse;}
 --- needs --- main.idv[4] ==> main1x.svg ---
 --- needs --- main.idv[6] ==> main2x.svg ---
 --- needs --- main.idv[7] ==> main3x.svg ---
-Css: #TBL-3 colgroup{border-left: 1px solid black;border-right:1px solid black;}
-Css: #TBL-3{border-collapse:collapse;}
-Css: #TBL-3 colgroup{border-left: 1px solid black;border-right:1px solid black;}
-Css: #TBL-3{border-collapse:collapse;}
 File: test-fig-.png
 --- characters ---
 Font("cmex","10","10","100")
@@ -216,7 +224,7 @@ Font("cmmi","8","8","100")
 Font("eccc1200","","12","100")
 Font("ectt","1095","10","100")
 Font("ecti","1095","10","100")
-Font("ecbx","1095","10","100")
 Font("cmmi","10","10","109")
+Font("ecbx","1095","10","100")
 Font("eccc1095","","10","100")
 Font("eccc2488","","24","100")

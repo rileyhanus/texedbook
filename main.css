@@ -29,14 +29,14 @@
 .ecti-1095{ font-style: italic;}
 .ecti-1095{ font-style: italic;}
 .ecti-1095{ font-style: italic;}
-.ecbx-1095{ font-weight: bold;}
-.ecbx-1095{ font-weight: bold;}
-.ecbx-1095{ font-weight: bold;}
-.ecbx-1095{ font-weight: bold;}
-.ecbx-1095{ font-weight: bold;}
-.ecbx-1095{ font-weight: bold;}
-.ecbx-1095{ font-weight: bold;}
 .cmmi-10x-x-109{font-style: italic;}
+.ecbx-1095{ font-weight: bold;}
+.ecbx-1095{ font-weight: bold;}
+.ecbx-1095{ font-weight: bold;}
+.ecbx-1095{ font-weight: bold;}
+.ecbx-1095{ font-weight: bold;}
+.ecbx-1095{ font-weight: bold;}
+.ecbx-1095{ font-weight: bold;}
 .eccc1095-{font-size:90%;}
 .eccc2488-{font-size:218%;}
 .small-caps{font-variant: small-caps; }
@@ -160,5 +160,13 @@ h1.partHead{text-align: center}
 #TBL-3{border-collapse:collapse;}
 #TBL-3 colgroup{border-left: 1px solid black;border-right:1px solid black;}
 #TBL-3{border-collapse:collapse;}
+#TBL-4 colgroup{border-left: 1px solid black;border-right:1px solid black;}
+#TBL-4{border-collapse:collapse;}
+#TBL-4 colgroup{border-left: 1px solid black;border-right:1px solid black;}
+#TBL-4{border-collapse:collapse;}
+#TBL-5 colgroup{border-left: 1px solid black;border-right:1px solid black;}
+#TBL-5{border-collapse:collapse;}
+#TBL-5 colgroup{border-left: 1px solid black;border-right:1px solid black;}
+#TBL-5{border-collapse:collapse;}
 /* end css.sty */
 
