@@ -15,7 +15,7 @@ def toc_loop(toc, level=0, toc_list=[]):
             toc_list.append([item.title, item.href, level])
     return toc_list
 
-def calchub_insert_iframe(soup, full_page=True, height="800"):
+def calchub_insert_iframe(soup, full_page=False, height="800"):
     divs = soup.find_all(class_="calchub")
     for div in divs:
         print("Inserting calchub iframe...")
@@ -25,6 +25,7 @@ def calchub_insert_iframe(soup, full_page=True, height="800"):
         if full_page:
             iframe_html = '<p>' + text + '</p> <iframe width="100%" height="' + height + '" src="' + parsed_href.geturl() + '"></iframe>'
         else:
+            print('here')
             old_path = parsed_href.path
             new_path = old_path.replace("calcs", "embed")
             parsed_href = parsed_href._replace(path=new_path, query='showToolbar=true')
@@ -106,13 +107,13 @@ def template_ebook(book_epub, sidebar_element_html, sidebar_html, template_html)
             # fixing hrefs such that they point to templated_xxx.html instead of xxx.html
             a_tags = body.find_all("a", href=True) 
             for a_tag in a_tags:
-                print(a_tag)
+                # print(a_tag)
                 href = a_tag['href']
                 for document_name in document_name_list:
                     if document_name in href:
                         href = href.replace(document_name, "templated_" + document_name)
                         a_tag['href'] = href
-                        print(a_tag)
+                        # print(a_tag)
 
             print("Templating page and writing templated html...")
             templated_html = template_body.render(sidebar=sidebar, body=body)

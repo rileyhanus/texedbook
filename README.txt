@@ -9,11 +9,24 @@ Naturally, print and pdf formats do not support many multi-media products that a
 Packages used:
 The input of this package is a latex document that compiles with no errors. The package tex4ebook, which uses tex4ht internally, is used to generate a .epub file from the latex document. This .epub is essentially a zipped up folder containing an .ncx navigation file and a series of .html files associated with each section. tex4ebook uses an config.cfg file to designate configuration settings which control how certain latex features are converted to latex. The default usage of the config.cfg file requires all math content, both displayed and in-line math, to be rendered as svg files and place in the html code. The config.cfg file is also where you will tell tex4ht how to handle custom environments. 
 
-Within template.py, ebooklib is used to parse the .epub file and build objects containing all of the content. Beautiful soup 4 is used for some html parsing. Jinja2 is used for html templating. 
+Within template.py, ebooklib is used to parse the .epub file and build objects containing all of the content. Beautiful Soup 4 is used for some html parsing. Jinja2 is used for html templating. 
 
 
-Set up your project:
+Set up texedbook:
 Follow these steps to set up your texedbook project.
+
+Prerequisits:
+0.1. Ensure you have a full Tex Live LaTex distribution installed. See https://www.latex-project.org/get/ .
+
+MacOS: Install MacTex using the .exe installer from the link above. (tested)
+
+Linux: run the following commands in the terminal. (tested)
+sudo apt update
+sudo apt install texlive-full
+
+Windows: Install using the TexLive installer (untested)
+
+0.2. Ensure you have python 3.8 (older versions may work too), venv, and pip installed.
 
 1. Clone the repository to your computer and navigate into it by running (you will need to have permissions)
 
@@ -42,7 +55,7 @@ tex4ebook -c config.cfg main.tex
 7. Extract the html and navigation meta-data, and template the content onto template.html which renders the interactive learning environment.
 
 tex4ebook -c config.cfg main.tex
-python make_texedbook.py
+python3 make_texedbook.py
  
 8. Open an of the the templated html files to view the html-based learning environment.
 

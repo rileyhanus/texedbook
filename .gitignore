@@ -278,3 +278,8 @@ dist
 .yarn/build-state.yml
 .yarn/install-state.gz
 .pnp.*
+
+# latex stuff
+*.aux
+*.bbl
+*.blg
