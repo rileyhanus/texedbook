@@ -25,7 +25,6 @@ def calchub_insert_iframe(soup, full_page=False, height="800"):
         if full_page:
             iframe_html = '<p>' + text + '</p> <iframe width="100%" height="' + height + '" src="' + parsed_href.geturl() + '"></iframe>'
         else:
-            print('here')
             old_path = parsed_href.path
             new_path = old_path.replace("calcs", "embed")
             parsed_href = parsed_href._replace(path=new_path, query='showToolbar=true')
@@ -71,26 +70,29 @@ def template_ebook(book_epub, sidebar_element_html, sidebar_html, template_html)
 
     print("Constructing TOC list based on .ncx content...")
     toc_list = toc_loop(book.toc)
-    
+    item_name_list = [row[1].split('#')[0] for row in toc_list]
+
+    focus_list = []
+    focus_counter=0
+    for element in toc_list:
+        if element[2] == 0:
+            focus_counter=focus_counter+1
+        focus_list.append(focus_counter)
     # Getting a list of document names
     document_item_list = book.get_items()
     document_name_list = []
     for item in document_item_list:
         document_name_list.append(item.get_name())
     
-    print("\n Looping through Epub Document Items...")
-    i=0
+    print("\nLooping through Epub Document Items...")
     for item in book.get_items():
-        if item.get_type() == ebooklib.ITEM_DOCUMENT:
+        if item.get_name() in item_name_list:
             document_name = item.get_name()
             print("\nDocument " + document_name + " ...")
             sidebar_content = ''
-            j=0
             print("Building Sidebar...")
             for element in toc_list:
-                if element[2] == 0:
-                    j=j+1
-                if i == j:
+                if document_name == element[1].split('#')[0]:
                     display_options = focus_display_options
                 else:
                     display_options = standard_display_options
@@ -107,21 +109,17 @@ def template_ebook(book_epub, sidebar_element_html, sidebar_html, template_html)
             # fixing hrefs such that they point to templated_xxx.html instead of xxx.html
             a_tags = body.find_all("a", href=True) 
             for a_tag in a_tags:
-                # print(a_tag)
                 href = a_tag['href']
                 for document_name in document_name_list:
                     if document_name in href:
                         href = href.replace(document_name, "templated_" + document_name)
                         a_tag['href'] = href
-                        # print(a_tag)
-
+                        
             print("Templating page and writing templated html...")
             templated_html = template_body.render(sidebar=sidebar, body=body)
             
             with open("templated_" + item.get_name(), "w") as file:
                 file.write(templated_html)
-            i=i+1
-
 
 template_ebook('./main-epub/main.epub', "sidebar_element.html", "sidebar.html", "template.html")
 

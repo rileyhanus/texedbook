@@ -12,91 +12,10 @@
 %%% Uncomment if you want to include the bibliographies at the end of each chapter in the table of contents.  
 % \usepackage[nottoc]{tocbibind}
 
+\usepackage{xparse}
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% 'dedication' environment: To add a dedication paragraph at the start of book %
-% Source: http://www.tug.org/pipermail/texhax/2010-June/015184.html            %
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\newenvironment{dedication}
-{
-   \cleardoublepage
-   \thispagestyle{empty}
-   \vspace*{\stretch{1}}
-   \hfill\begin{minipage}[t]{0.66\textwidth}
-   \raggedright
-}
-{
-   \end{minipage}
-   \vspace*{\stretch{3}}
-   \clearpage
-}
-
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% Chapter quote at the start of chapter        %
-% Source: http://tex.stackexchange.com/a/53380 %
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\makeatletter
-\renewcommand{\@chapapp}{}% Not necessary...
-\newenvironment{chapquote}[2][2em]
-  {\setlength{\@tempdima}{#1}%
-   \def\chapquote@author{#2}%
-   \parshape 1 \@tempdima \dimexpr\textwidth-2\@tempdima\relax%
-   \itshape}
-  {\par\normalfont\hfill--\ \chapquote@author\hspace*{\@tempdima}\par\bigskip}
-\makeatother
-
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% calchub environment: for embedding a calchub workspace                       %
-% texedbook compatible: html=embedded work space, pdf=multimedia box w/ href   %
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\newenvironment{calchub}
-    {\begin{center}
-    \begin{tabular}{|p{0.9\textwidth}|}
-    \hline
-    Multimedia content: CalcHub Workspace\\
-    \hline\\
-    }
-    { 
-    \\\\\hline
-    \end{tabular} 
-    \end{center}
-    }
-
-\newcommand{\InsertCalchubWorkspace}[2]{ 
-   % 1st input: display name 
-   % 2nd input: href
-   \begin{calchub}
-      \href{#2}{#1}
-   \end{calchub}
-} 
-
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% video environment: for embedding videos                                      %
-% texedbook compatible: html=embedded video, pdf=multimedia box w/ href        %
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\newenvironment{youtube}
-    {\begin{center}
-    \begin{tabular}{|p{0.9\textwidth}|}
-    \hline
-    Multimedia content: YouTube Video\\
-    \hline\\
-    }
-    { 
-    \\\\\hline
-    \end{tabular} 
-    \end{center}
-    }
-
-\newcommand{\InsertYoutubeVideo}[2]{ 
-   % 1st input: display name 
-   % 2nd input: href
-   \begin{youtube}
-      \href{#2}{#1}
-   \end{youtube}
-} 
+\include{preamble}
+\include{custom_envs}
 
 
 %%%%%%%%%%%%%%
@@ -104,11 +23,12 @@
 %%%%%%%%%%%%%%
 
 % Book's title and subtitle
-\title{\Huge \textbf{Texedbook}}
+\title{\Huge \textbf{TexEdBook}}
 % Authors
 \author{\textsc{Riley Hanus}}
 
 \begin{document}
+
 \frontmatter
 \maketitle
 

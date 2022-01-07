@@ -3,10 +3,55 @@
 }
 
 .prose {
-  max-width: 80ch;
+  max-width: 100ch;
   line-height: 1.15;
 }
 
 .titlemark {
   font-family: sans-serif;
 }
+
+.chapterHead {
+  font-family: sans-serif;
+}
+
+.sectionHead {
+  font-family: sans-serif;
+}
+
+.subsectionHead {
+  font-family: sans-serif;
+}
+
+.math {
+  display: inline;
+}
+
+.prose img{
+  margin-top: 0em;
+  margin-bottom: 0em;
+}
+
+.prose hr{
+  margin-top: 0em;
+  margin-bottom: 0em;
+}
+
+.prose tbody td{
+  padding-top: 0em;
+  padding-bottom: 0em;
+}
+
+/* .math-display {
+  align-items: center;
+}
+
+.equation-label {
+  vertical-align: middle;
+} */
+
+.iframe{
+  margin-left:auto;
+  margin-right:auto
+}
+

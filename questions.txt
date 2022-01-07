@@ -1,0 +1,4 @@
+equation-label vetical-algin middle
+math-display center
+iframe center
+change image size based on font size
