@@ -68,6 +68,7 @@ File: mainch2.html
 File: mainch3.html
 File: mainch4.html
 File: mainch5.html
+File: mainch6.html
 File: main.ncx
 File: content.opf
 File: content-part2.opf
@@ -196,22 +197,18 @@ Css:  .likesubsectionToc ~ .subsubsectionToc, .subsectionToc ~ .subsubsectionToc
 Css: .rotatebox{display: inline-block;}
 Css: .figure img.graphics {margin-left:10%;}
 --- needs --- main.idv[2] ==> main0x.svg ---
-Css: #TBL-3 colgroup{border-left: 1px solid black;border-right:1px solid black;}
-Css: #TBL-3{border-collapse:collapse;}
-Css: #TBL-3 colgroup{border-left: 1px solid black;border-right:1px solid black;}
-Css: #TBL-3{border-collapse:collapse;}
-Css: #TBL-4 colgroup{border-left: 1px solid black;border-right:1px solid black;}
-Css: #TBL-4{border-collapse:collapse;}
-Css: #TBL-4 colgroup{border-left: 1px solid black;border-right:1px solid black;}
-Css: #TBL-4{border-collapse:collapse;}
-Css: #TBL-5 colgroup{border-left: 1px solid black;border-right:1px solid black;}
-Css: #TBL-5{border-collapse:collapse;}
-Css: #TBL-5 colgroup{border-left: 1px solid black;border-right:1px solid black;}
-Css: #TBL-5{border-collapse:collapse;}
 --- needs --- main.idv[4] ==> main1x.svg ---
 --- needs --- main.idv[6] ==> main2x.svg ---
 --- needs --- main.idv[7] ==> main3x.svg ---
 File: test-fig-.png
+Css: #TBL-3 colgroup{border-left: 1px solid black;border-right:1px solid black;}
+Css: #TBL-3{border-collapse:collapse;}
+Css: #TBL-3 colgroup{border-left: 1px solid black;border-right:1px solid black;}
+Css: #TBL-3{border-collapse:collapse;}
+Css: #TBL-4 colgroup{border-left: 1px solid black;border-right:1px solid black;}
+Css: #TBL-4{border-collapse:collapse;}
+Css: #TBL-4 colgroup{border-left: 1px solid black;border-right:1px solid black;}
+Css: #TBL-4{border-collapse:collapse;}
 --- characters ---
 Font("cmex","10","10","100")
 Font("cmr","10","10","109")

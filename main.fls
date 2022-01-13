@@ -98,6 +98,8 @@ INPUT /home/riley/code/texedbook/chap1.aux
 INPUT /home/riley/code/texedbook/chap1.aux
 INPUT /home/riley/code/texedbook/chap2.aux
 INPUT /home/riley/code/texedbook/chap2.aux
+INPUT /home/riley/code/texedbook/chap3.aux
+INPUT /home/riley/code/texedbook/chap3.aux
 INPUT /home/riley/code/texedbook/afterword.aux
 INPUT /home/riley/code/texedbook/afterword.aux
 OUTPUT /home/riley/code/texedbook/main.aux
@@ -155,9 +157,9 @@ INPUT /usr/share/texlive/texmf-dist/fonts/tfm/jknappen/ec/ecrm1440.tfm
 INPUT /usr/share/texlive/texmf-dist/fonts/tfm/jknappen/ec/ecbx1440.tfm
 INPUT /usr/share/texlive/texmf-dist/fonts/tfm/jknappen/ec/ecbx1200.tfm
 INPUT /usr/share/texlive/texmf-dist/fonts/tfm/jknappen/ec/tcrm1095.tfm
+INPUT /home/riley/code/texedbook/chap1.bbl
+INPUT /home/riley/code/texedbook/chap1.bbl
 INPUT /usr/share/texlive/texmf-dist/fonts/tfm/jknappen/ec/ecsl1095.tfm
-INPUT /home/riley/code/texedbook/chap1.bbl
-INPUT /home/riley/code/texedbook/chap1.bbl
 OUTPUT /home/riley/code/texedbook/chap2.aux
 INPUT /home/riley/code/texedbook/chap2.tex
 INPUT /home/riley/code/texedbook/chap2.tex
@@ -167,6 +169,11 @@ INPUT /home/riley/code/texedbook/test-fig.pdf
 INPUT /home/riley/code/texedbook/chap2.bbl
 INPUT /home/riley/code/texedbook/chap2.bbl
 INPUT /usr/share/texlive/texmf-dist/fonts/tfm/jknappen/ec/ecti0800.tfm
+OUTPUT /home/riley/code/texedbook/chap3.aux
+INPUT /home/riley/code/texedbook/chap3.tex
+INPUT /home/riley/code/texedbook/chap3.tex
+INPUT /home/riley/code/texedbook/chap3.bbl
+INPUT /home/riley/code/texedbook/chap3.bbl
 OUTPUT /home/riley/code/texedbook/afterword.aux
 INPUT /home/riley/code/texedbook/afterword.tex
 INPUT /home/riley/code/texedbook/afterword.tex
@@ -178,6 +185,8 @@ INPUT /home/riley/code/texedbook/chap1.aux
 INPUT /home/riley/code/texedbook/chap1.aux
 INPUT /home/riley/code/texedbook/chap2.aux
 INPUT /home/riley/code/texedbook/chap2.aux
+INPUT /home/riley/code/texedbook/chap3.aux
+INPUT /home/riley/code/texedbook/chap3.aux
 INPUT /home/riley/code/texedbook/afterword.aux
 INPUT /home/riley/code/texedbook/afterword.aux
 INPUT /home/riley/code/texedbook/main.out

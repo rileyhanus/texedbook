@@ -12,7 +12,9 @@ def toc_loop(toc, level=0, toc_list=[]):
             level=level+1
             toc_loop(item, level)
         else:
-            toc_list.append([item.title, item.href, level])
+            print(level*' ' + '|')
+            toc_list.append([level*' ' +item.title, item.href, level])
+    
     return toc_list
 
 def calchub_insert_iframe(soup, full_page=False, height="800"):
@@ -65,8 +67,8 @@ def template_ebook(book_epub, sidebar_element_html, sidebar_html, template_html)
     template_body = Template(body_template)
 
     focus_display_options = 'bg-gray-200 text-gray-900 hover:text-gray-600'
-    standard_display_options = 'text-gray-600 hover:bg-gray-50 hover:text-gray-900'
-    sidebar_font_sizes = [' text-md font-bold ', ' text-sm font-bold ', ' text-xs ', ' text-xs ']
+    standard_display_options = 'bg-gray-75 text-gray-600 hover:bg-gray-200 hover:text-gray-900'
+    sidebar_font_sizes = [' text-md font-bold ', ' text-sm font-bold ', ' text-xs ', ' text-xs ', ' text-xs ', ' text-xs ']
 
     print("Constructing TOC list based on .ncx content...")
     toc_list = toc_loop(book.toc)
@@ -96,7 +98,7 @@ def template_ebook(book_epub, sidebar_element_html, sidebar_html, template_html)
                     display_options = focus_display_options
                 else:
                     display_options = standard_display_options
-                sidebar_content = sidebar_content + template_sidebar_element.render(sidebar_element_href="templated_" + element[1], sidebar_element_title=element[0], display_options=display_options + sidebar_font_sizes[element[2]]) + '\n'
+                sidebar_content = sidebar_content + template_sidebar_element.render(sidebar_element_href="templated_" + element[1],  sidebar_element_title=element[0], display_options=display_options + sidebar_font_sizes[element[2]] + " px-" + str(4+2*element[2])) + '\n'
             sidebar = template_sidebar.render(sidebar_content=sidebar_content)
 
             print("Extracting body...")
@@ -121,7 +123,7 @@ def template_ebook(book_epub, sidebar_element_html, sidebar_html, template_html)
             with open("templated_" + item.get_name(), "w") as file:
                 file.write(templated_html)
 
-template_ebook('./main-epub/main.epub', "sidebar_element.html", "sidebar.html", "template.html")
+template_ebook('./main-epub/main.epub', "sidebar_element.html", "sidebar.html", "template-new.html")
 
 
 
