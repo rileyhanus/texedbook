@@ -291,4 +291,12 @@ dist
 *.tmp
 *.out
 *.opf
+*.dvi
+*.idv
+*.lg
+*.ncx
+*.toc
+*.xref
+*.fdb_latexmk
+
 main-epub/

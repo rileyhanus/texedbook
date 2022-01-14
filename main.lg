@@ -200,7 +200,6 @@ Css: .figure img.graphics {margin-left:10%;}
 --- needs --- main.idv[4] ==> main1x.svg ---
 --- needs --- main.idv[6] ==> main2x.svg ---
 --- needs --- main.idv[7] ==> main3x.svg ---
-l. 18 --- needs --- "rungs -q -dNOPAUSE -dBATCH -dusecropbox -sDEVICE=pngalpha -r300  -sOutputFile="test-fig-.png" "test-fig.pdf" " ---
 File: test-fig-.png
 Css: #TBL-3 colgroup{border-left: 1px solid black;border-right:1px solid black;}
 Css: #TBL-3{border-collapse:collapse;}
