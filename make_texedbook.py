@@ -120,10 +120,10 @@ def template_ebook(book_epub, sidebar_element_html, sidebar_html, template_html)
             print("Templating page and writing templated html...")
             templated_html = template_body.render(sidebar=sidebar, body=body)
             
-            with open("templated_" + item.get_name(), "w") as file:
+            with open("./templated_" + item.get_name(), "w") as file:
                 file.write(templated_html)
 
-template_ebook('./main-epub/main.epub', "sidebar_element.html", "sidebar.html", "template-new.html")
+template_ebook('./main-epub/main.epub', "sidebar_element.html", "sidebar.html", "template.html")
 
 
 

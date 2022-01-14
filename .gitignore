@@ -283,3 +283,12 @@ dist
 *.aux
 *.bbl
 *.blg
+*.log
+*.4tc
+*.4ct
+*.xbb
+*.svg
+*.tmp
+*.out
+*.opf
+main-epub/
