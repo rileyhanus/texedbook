@@ -6,9 +6,10 @@ xmlns:opf="http://www.idpf.org/2007/opf">
 <dc:title>TexEdBook</dc:title> 
 <dc:language>en-US</dc:language> 
 <dc:identifier id="dcidid"  opf:scheme="URI">http://example.com/main</dc:identifier> 
-<dc:creator>Riley Hanus</dc:creator> 
-
-<dc:date>2022-01-14T07:55:00Z</dc:date></metadata>   
+<dc:creator>Riley C. Hanus
+</dc:creator> 
+<dc:creator>G. Jeff Snyder</dc:creator> 
+<dc:date>2022-01-16T10:26:00Z</dc:date></metadata>   
 <manifest> 
 <item id="ncx" href="main.ncx" media-type="application/x-dtbncx+xml" /> 
 <item id="stylesheet" href="main.css" media-type="text/css"/> 
@@ -28,6 +29,7 @@ xmlns:opf="http://www.idpf.org/2007/opf">
 </manifest> 
    
 <spine toc="ncx"> 
+
 <itemref idref="file1" /> 
 <itemref idref="file2" /> 
 <itemref idref="file3" /> 

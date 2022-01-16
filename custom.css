@@ -3,7 +3,7 @@
 }
 
 .prose {
-  max-width: 120ch;
+  max-width: 100ch;
   line-height: 1.15;
 }
 
@@ -80,4 +80,8 @@ p.indent{
 
 li.itemize::before{
   text-indent:2em
+}
+
+button:focus{
+  outline: none
 }

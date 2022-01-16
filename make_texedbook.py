@@ -12,8 +12,7 @@ def toc_loop(toc, level=0, toc_list=[]):
             level=level+1
             toc_loop(item, level)
         else:
-            print(level*' ' + '|')
-            toc_list.append([level*' ' +item.title, item.href, level])
+            toc_list.append([item.title, item.href, level])
     
     return toc_list
 
@@ -54,6 +53,8 @@ def youtube_insert_iframe(soup, width="560", height="315"):
 def template_ebook(book_epub, sidebar_element_html, sidebar_html, template_html):
     print("Reading .epub file and building an Epub object...")
     book = epub.read_epub(book_epub)
+    print("\n  Book Title: " + book.title + "\n")
+    print(book.get_metadata("DC", "creator"))
 
     print("Opening html templates and building Template objects...")
     with open(sidebar_element_html, "r", encoding='utf-8') as f:
@@ -98,7 +99,7 @@ def template_ebook(book_epub, sidebar_element_html, sidebar_html, template_html)
                     display_options = focus_display_options
                 else:
                     display_options = standard_display_options
-                sidebar_content = sidebar_content + template_sidebar_element.render(sidebar_element_href="templated_" + element[1],  sidebar_element_title=element[0], display_options=display_options + sidebar_font_sizes[element[2]] + " px-" + str(4+2*element[2])) + '\n'
+                sidebar_content = sidebar_content + template_sidebar_element.render(sidebar_element_href="templated_" + element[1],  sidebar_element_title=element[0], display_options=display_options + sidebar_font_sizes[element[2]] + " px-" + str(4+4*element[2])) + '\n'
             sidebar = template_sidebar.render(sidebar_content=sidebar_content)
 
             print("Extracting body...")
@@ -118,7 +119,7 @@ def template_ebook(book_epub, sidebar_element_html, sidebar_html, template_html)
                         a_tag['href'] = href
                         
             print("Templating page and writing templated html...")
-            templated_html = template_body.render(sidebar=sidebar, body=body)
+            templated_html = template_body.render(title=book.title + ' by ', sidebar=sidebar, body=body)
             
             with open("./templated_" + item.get_name(), "w") as file:
                 file.write(templated_html)
