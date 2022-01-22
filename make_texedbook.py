@@ -3,6 +3,9 @@ import ebooklib
 from ebooklib import epub
 from jinja2 import Template
 from urllib.parse import urlparse
+import os as os
+import shutil
+import glob
 
 def toc_loop(toc, level=0, toc_list=[]):
     for item in toc:
@@ -121,10 +124,36 @@ def template_ebook(book_epub, sidebar_element_html, sidebar_html, template_html)
             print("Templating page and writing templated html...")
             templated_html = template_body.render(title=book.title + ' by ', sidebar=sidebar, body=body)
             
-            with open("./templated_" + item.get_name(), "w") as file:
+            with open("./output/templated_" + item.get_name(), "w") as file:
                 file.write(templated_html)
 
-template_ebook('./main-epub/main.epub', "sidebar_element.html", "sidebar.html", "template.html")
+
+# copy figure files to the ./output/ directory
+svg_sources = glob.glob(os.path.join('.', 'latex', '*.svg'))
+png_sources = glob.glob(os.path.join('.', 'latex', '*.png'))
+pdf_sources = glob.glob(os.path.join('.', 'latex', '*.pdf'))
+print(svg_sources)
+target = os.path.join('.', 'output')
+print(target)
+
+if not os.path.exists(target):
+    print('here')
+    os.makedirs(target)
+
+try:
+    for source in svg_sources:
+        shutil.copy(source, target)
+    for source in png_sources:
+        shutil.copy(source, target)
+    for source in pdf_sources:
+        shutil.copy(source, target)
+except IOError as e:
+    print("Unable to copy file. %s" % e)
+except:
+    print("Unexpected error:", sys.exc_info())
+
+
+template_ebook('./latex/main-epub/main.epub', "./templates/sidebar_element.html", "./templates/sidebar.html", "./templates/template.html")
 
 
 
