@@ -6,6 +6,7 @@ from urllib.parse import urlparse
 import os as os
 import shutil
 import glob
+import sys
 
 def toc_loop(toc, level=0, toc_list=[]):
     for item in toc:
@@ -53,7 +54,13 @@ def youtube_insert_iframe(soup, width="560", height="315"):
         div.append(BeautifulSoup(iframe_html, "html.parser"))
 
 
-def template_ebook(book_epub, sidebar_element_html, sidebar_html, template_html):
+def template_ebook(book_epub, sidebar_element_html, sidebar_html, template_html, css):
+    
+    target = os.path.join('.', 'output')
+    if not os.path.exists(target):
+        print('here')
+        os.makedirs(target)
+    
     print("Reading .epub file and building an Epub object...")
     book = epub.read_epub(book_epub)
     print("\n  Book Title: " + book.title + "\n")
@@ -90,6 +97,20 @@ def template_ebook(book_epub, sidebar_element_html, sidebar_html, template_html)
     for item in document_item_list:
         document_name_list.append(item.get_name())
     
+    print('Make title page template_main.html...')
+    title_page_html = book.get_item_with_href("main.html").get_content()
+    soup = BeautifulSoup(title_page_html, 'html.parser')
+    body = soup.body
+    sidebar_content = ''
+    for element in toc_list:
+        display_options = standard_display_options
+        sidebar_content = sidebar_content + template_sidebar_element.render(sidebar_element_href="templated_" + element[1],  sidebar_element_title=element[0], display_options=display_options + sidebar_font_sizes[element[2]] + " px-" + str(4+4*element[2])) + '\n'
+        sidebar = template_sidebar.render(sidebar_content=sidebar_content)
+    templated_html = template_body.render(title=book.title, sidebar=sidebar, body=body)
+    with open("./output/templated_" + "main.html", "w") as file:
+        file.write(templated_html)
+
+
     print("\nLooping through Epub Document Items...")
     for item in book.get_items():
         if item.get_name() in item_name_list:
@@ -122,38 +143,32 @@ def template_ebook(book_epub, sidebar_element_html, sidebar_html, template_html)
                         a_tag['href'] = href
                         
             print("Templating page and writing templated html...")
-            templated_html = template_body.render(title=book.title + ' by ', sidebar=sidebar, body=body)
-            
+            templated_html = template_body.render(title=book.title, sidebar=sidebar, body=body)
             with open("./output/templated_" + item.get_name(), "w") as file:
                 file.write(templated_html)
 
+        # copy figure files to the ./output/ directory
+        svg_sources = glob.glob(os.path.join('.', 'latex', '*.svg'))
+        png_sources = glob.glob(os.path.join('.', 'latex', '*.png'))
+        pdf_sources = glob.glob(os.path.join('.', 'latex', '*.pdf'))
+        try:
+            for source in svg_sources:
+                shutil.copy(source, target)
+            for source in png_sources:
+                shutil.copy(source, target)
+            for source in pdf_sources:
+                shutil.copy(source, target)
+        except IOError as e:
+            print("Unable to copy file. %s" % e)
+        except:
+            print("Unexpected error:", sys.exc_info())
 
-# copy figure files to the ./output/ directory
-svg_sources = glob.glob(os.path.join('.', 'latex', '*.svg'))
-png_sources = glob.glob(os.path.join('.', 'latex', '*.png'))
-pdf_sources = glob.glob(os.path.join('.', 'latex', '*.pdf'))
-print(svg_sources)
-target = os.path.join('.', 'output')
-print(target)
-
-if not os.path.exists(target):
-    print('here')
-    os.makedirs(target)
-
-try:
-    for source in svg_sources:
-        shutil.copy(source, target)
-    for source in png_sources:
-        shutil.copy(source, target)
-    for source in pdf_sources:
-        shutil.copy(source, target)
-except IOError as e:
-    print("Unable to copy file. %s" % e)
-except:
-    print("Unexpected error:", sys.exc_info())
+        # copy the required .css file to the ./output/directory
+        shutil.copy(css, os.path.join('.', 'output'))
 
 
-template_ebook('./latex/main-epub/main.epub', "./templates/sidebar_element.html", "./templates/sidebar.html", "./templates/template.html")
+
+template_ebook('./latex/main-epub/main.epub', "./templates/sidebar_element.html", "./templates/sidebar.html", "./templates/template.html", "./templates/custom.css")
 
 
 

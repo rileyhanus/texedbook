@@ -51,6 +51,7 @@ Follow these steps to set up your texedbook project.
 
 1. Make sure every figure.pdf has a corresponding figure.xbb by executing the following in the terminal. 
 
+    `cd latex`
     `ebb -x *.pdf`
 
 6. Create your main.epub file along with the corresponding .html files for all the Chapters by running the following command in the terminal.
@@ -58,7 +59,7 @@ Follow these steps to set up your texedbook project.
     `tex4ebook -c config.cfg main.tex`
 
 7. Extract the html and navigation meta-data, and template the content onto template.html which renders the interactive learning environment.
-
+    `cd ..`
     `python3 make_texedbook.py`
  
 8. Open an of the the templated html files to view the html-based learning environment.

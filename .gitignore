@@ -298,5 +298,10 @@ dist
 *.toc
 *.xref
 *.fdb_latexmk
-
+*.fls
+*.epub
+latex/*.html
+latex/*.css
+latex/main-epub/
+output/
 main-epub/
