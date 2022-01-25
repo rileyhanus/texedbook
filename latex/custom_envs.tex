@@ -7,7 +7,7 @@
     {\begin{center}
     \begin{tabular}{|p{0.9\textwidth}|}
     \hline
-    Multimedia content: CalcHub Workspace\\
+    Interactive content: CalcHub Workspace\\
     \hline\\
     }
     { 
@@ -16,7 +16,7 @@
     \end{center}
     }
 
-\newcommand{\InsertCalchubWorkspace}[2]{ 
+\newcommand{\InsertCalchub}[2]{ 
    % 1st input: display name 
    % 2nd input: href
    \begin{calchub}
@@ -42,10 +42,44 @@
     \end{center}
     }
 
-\newcommand{\InsertYoutubeVideo}[2]{ 
+\newcommand{\InsertYoutube}[2]{ 
    % 1st input: display name 
    % 2nd input: href
    \begin{youtube}
       \href{#2}{#1}
    \end{youtube}
 } 
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% python coding environment: for coding practice                               %
+% texedbook compatible: html=embedded trinket, pdf=multimedia box w/ href      %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\newenvironment{trinket}
+    {\begin{center}
+    \begin{tabular}{|p{0.9\textwidth}|}
+    \hline
+    Interactive content: Trinket python environment\\
+    \hline\\
+    }
+    { 
+    \\\\\hline
+    \end{tabular} 
+    \end{center}
+    }
+
+\newcommand{\InsertTrinket}[2]{ 
+   % 1st input: display name 
+   % 2nd input: href
+   \begin{trinket}
+      \href{#2}{#1}
+   \end{trinket}
+} 
+
+% a command for displaying code
+\newcommand{\code}[1]{
+   \begin{verbatim}
+   {#1}
+   \end{verbatim}
+   }

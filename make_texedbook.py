@@ -54,6 +54,25 @@ def youtube_insert_iframe(soup, width="560", height="315"):
         div.append(BeautifulSoup(iframe_html, "html.parser"))
 
 
+
+def trinket_insert_iframe(soup, width="100%", height="500"):
+    divs = soup.find_all(class_="trinket")
+    for div in divs:
+        print("Inserting trinket iframe...")
+        href = div.find_all("a")[0]['href']
+        print(href)
+        # parsed_href = urlparse(href)
+        # print(parsed_href)
+        # path = parsed_href.path
+        # trinket_code = path.split('/')[-1]
+        # print(trinket_code)
+        # parsed_href = parsed_href._replace(path='embed/' + video_code, query='')
+        text = div.find_all("a")[0].text
+        iframe_html = '<p>' + text + '</p>  <iframe src="' + href + '" width="' + width + '" height="' + height + '" frameborder="0" marginwidth="0" marginheight="0" allowfullscreen></iframe>'
+        div.clear()
+        div.append(BeautifulSoup(iframe_html, "html.parser"))
+
+
 def template_ebook(book_epub, sidebar_element_html, sidebar_html, template_html, css):
     
     target = os.path.join('.', 'output')
@@ -131,6 +150,7 @@ def template_ebook(book_epub, sidebar_element_html, sidebar_html, template_html,
             soup = BeautifulSoup(content, 'html.parser')
             calchub_insert_iframe(soup)
             youtube_insert_iframe(soup)
+            trinket_insert_iframe(soup)
             body = soup.body
             
             # fixing hrefs such that they point to templated_xxx.html instead of xxx.html
