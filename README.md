@@ -27,7 +27,7 @@ Follow these steps to set up your texedbook project.
 
    - Windows: Install using the TexLive installer (untested)
 
-1. Ensure you have python 3.8 (older versions may work too), venv, wheel, and pip installed. wheel can be installed with 
+1. Ensure you have python 3.8 (older versions may work too), venv, wheel, and pip installed. Wheel can be installed with 
 
     `pip install wheel`
 
