@@ -59,12 +59,21 @@ iframe{
   margin-right:auto
 }
 
-div.youtube p{
-  text-align:center;
+div.trinket p{
   font-family:sans-serif;
-  font-size:larger
 }
 
+div.calchub p{
+  font-family:sans-serif;
+}
+
+div.youtube p{
+  font-family:sans-serif;
+}
+
+div.panopto p{
+  font-family:sans-serif;
+}
 
 div.figure img{
   width:100%

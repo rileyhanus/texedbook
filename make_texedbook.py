@@ -26,7 +26,7 @@ def calchub_insert_iframe(soup, full_page=False, height="800"):
         print("Inserting calchub iframe...")
         href = div.find_all("a")[0]['href']
         parsed_href = urlparse(href)
-        text = div.find_all("a")[0].text
+        text = div.find_all("a")[0].parent.text
         if full_page:
             iframe_html = '<p>' + text + '</p> <iframe width="100%" height="' + height + '" src="' + parsed_href.geturl() + '"></iframe>'
         else:
@@ -48,7 +48,7 @@ def youtube_insert_iframe(soup, width="560", height="315"):
         query = parsed_href.query
         video_code = query.split('=')[1]
         parsed_href = parsed_href._replace(path='embed/' + video_code, query='')
-        text = div.find_all("a")[0].text
+        text = div.find_all("a")[0].parent.text
         iframe_html = '<p>' + text + '</p>  <iframe width="'+ width + '" height="' + height + '" src="' + parsed_href.geturl() + '" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>'
         div.clear()
         div.append(BeautifulSoup(iframe_html, "html.parser"))
@@ -67,8 +67,20 @@ def trinket_insert_iframe(soup, width="100%", height="500"):
         # trinket_code = path.split('/')[-1]
         # print(trinket_code)
         # parsed_href = parsed_href._replace(path='embed/' + video_code, query='')
-        text = div.find_all("a")[0].text
+        text = div.find_all("a")[0].parent.text
         iframe_html = '<p>' + text + '</p>  <iframe src="' + href + '" width="' + width + '" height="' + height + '" frameborder="0" marginwidth="0" marginheight="0" allowfullscreen></iframe>'
+        div.clear()
+        div.append(BeautifulSoup(iframe_html, "html.parser"))
+
+
+def panopto_insert_iframe(soup, width="560", height="315"):
+    divs = soup.find_all(class_="panopto")
+    for div in divs:
+        print("Inserting panopto iframe...")
+        href = div.find_all("a")[0]['href']
+        href_embed = href.replace("Viewer", "Embed")
+        text = div.find_all("a")[0].parent.text
+        iframe_html = '<p>' + text + '</p>  <iframe width="'+ width + '" height="' + height + '" src="' + href_embed + '"></iframe>'
         div.clear()
         div.append(BeautifulSoup(iframe_html, "html.parser"))
 
@@ -151,6 +163,7 @@ def template_ebook(book_epub, sidebar_element_html, sidebar_html, template_html,
             calchub_insert_iframe(soup)
             youtube_insert_iframe(soup)
             trinket_insert_iframe(soup)
+            panopto_insert_iframe(soup)
             body = soup.body
             
             # fixing hrefs such that they point to templated_xxx.html instead of xxx.html
