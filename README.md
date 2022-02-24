@@ -57,20 +57,35 @@ Follow these steps to set up your texedbook project.
 
     `ebb -x *.pdf`
 
-6. Create your main.epub file along with the corresponding .html files for all the Chapters by running the following command in the terminal.
+1. Create your main.epub file along with the corresponding .html files for all the Chapters by running the following command in the terminal.
 
     `tex4ebook -c config.cfg main.tex`
 
-7. Extract the html and navigation meta-data, and template the content onto template.html which renders the interactive learning environment.
+1. Extract the html and navigation meta-data, and template the content onto template.html which renders the interactive learning environment.
     
     `cd ../`
 
     `python3 make_texedbook.py`
  
-8. Open an of the the templated html files to view the html-based learning environment.
+1. Open an of the the templated html files to view the html-based learning environment.
 
 
 ## Editing your project:
 
 After making changes to any of your .tex files run step 6 and 7 from "Set up your project" and the .html files will be updated. If you add a new pdf figure you will need to run step 5 as well.
+
+
+## Quarks
+
+1. Since equations and equation referenceing in TexEdBook is done with Mathjax, and each chapter is compiled into its own htlm page, references can only be made to equation within the chapter. For example, if you label an equation in Chapter 1 
+
+    `/label{eq:ch1-equation}`
+
+    this can only be referenced using 
+
+    `/mjref{eq:ch1-equation}` 
+
+    within Chapter 1. It will through '???' in the rendered html if that same mjref is used in Chapter 2.
+
+    To reference equations between Chapters, you might consider referencing the section/subsection the equation is contained in (to provide a hyperlink), and explicitly stating the equation/variable of interest.
 
