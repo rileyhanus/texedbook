@@ -1,7 +1,7 @@
 # TexEdBook
 
 ## Overview:
-This is a package that converts any latex project directly into an html-based learning environment which supports interactive digital content. All functions and environments native to latex are supported. In addition, multi-media content such as videos and live math workspaces (powered by CalcHub) can be implimented directly in the latex code using custom environments provided in this package. Therefore, this package is backwards compatible with legacy educational content, and is also capable of supporting html-based interactive content moving forward. 
+This is a package that converts any latex project directly into an html-based learning environment which supports interactive digital content. All functions and environments native to latex are supported. In addition, multi-media content such as videos, embedded coding environments, and live math workspaces (powered by CalcHub) can be implimented directly in the latex code using custom environments provided in this package. Therefore, this package is backwards compatible with legacy educational content, and is also capable of supporting html-based interactive content moving forward. 
 
 ## Multi-media content:
 Naturally, print and pdf formats do not support many multi-media formats that are desired in a digital learning environment (videos, math workspaces, problem sets and quizzes). When this type of content is included in the latex document, the pdf render simply provides a hyperlink to the url used to access the digital content is given. This is analogous to a print textbook containing a CD with digital content. When TexEdBook compiles the latex project into an interactive html-based learning environment, the multi-media content is imbedded into the web page and is fully functional.
@@ -75,7 +75,7 @@ Follow these steps to set up your texedbook project.
 After making changes to any of your .tex files run step 6 and 7 from "Set up your project" and the .html files will be updated. If you add a new pdf figure you will need to run step 5 as well.
 
 
-## Quarks
+## Quirks
 
 1. Since equations and equation referenceing in TexEdBook is done with Mathjax, and each chapter is compiled into its own htlm page, references can only be made to equation within the chapter. For example, if you label an equation in Chapter 1 
 
