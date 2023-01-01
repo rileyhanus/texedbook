@@ -1,0 +1,4 @@
+:%s/\\(/\$/g
+:%s/\\)/\$/g
+:%s/\$\$\(\_.\{-}\)\$\$/\\begin{equation}\1\\end{equation}/g
+:wq

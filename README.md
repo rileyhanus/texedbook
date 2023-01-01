@@ -1,13 +1,13 @@
 # TexEdBook
 
 ## Overview:
-This is a package that converts any latex project directly into an html-based learning environment which supports interactive digital content. All functions and environments native to latex are supported. In addition, multi-media content such as videos, embedded coding environments, and live math workspaces (powered by CalcHub) can be implimented directly in the latex code using custom environments provided in this package. Therefore, this package is backwards compatible with legacy educational content, and is also capable of supporting html-based interactive content moving forward. 
+This is a package that converts any latex project directly into an html-based learning environment which supports interactive digital content. All functions and environments native to latex are supported. In addition, multi-media content such as videos and live math workspaces (powered by CalcHub) can be implimented directly in the latex code using custom environments provided in this package. Therefore, this package is backwards compatible with legacy educational content, and is also capable of supporting html-based interactive content moving forward. 
 
 ## Multi-media content:
 Naturally, print and pdf formats do not support many multi-media formats that are desired in a digital learning environment (videos, math workspaces, problem sets and quizzes). When this type of content is included in the latex document, the pdf render simply provides a hyperlink to the url used to access the digital content is given. This is analogous to a print textbook containing a CD with digital content. When TexEdBook compiles the latex project into an interactive html-based learning environment, the multi-media content is imbedded into the web page and is fully functional.
 
 ## Packages used:
-The input of this package is a latex document. If the document compiles with errors, these errors may propagate into the html pages generated. The package tex4ebook, which uses tex4ht internally, is used to generate a .epub file from the latex document. This .epub is essentially a zipped up folder containing an .ncx navigation file and a series of .html files associated with each section. tex4ebook uses an config.cfg file to designate configuration settings which control how certain latex features are converted to latex. The default usage of the config.cfg file designates that MathJax is to be used to render all math in the html pages.  The config.cfg file is also where we tell tex4ht how to handle custom environments. 
+The input of this package is a latex document. If the document compiles with errors, these errors may propagate into the html pages generated. The package tex4ebook, which uses tex4ht internally, is used to generate a .epub file from the latex document. This .epub is essentially a zipped up folder containing an .ncx navigation file and a series of .html files associated with each section. tex4ebook uses an config.cfg file to designate configuration settings which control how certain latex features are converted to latex. The default usage of the config.cfg file requires all math content, both displayed and in-line math, to be rendered as svg files and place in the html code. The config.cfg file is also where we tell tex4ht how to handle custom environments. 
 
 Within make_texedbook.py, ebooklib is used to parse the .epub file and build objects containing all of the content. Beautiful Soup 4 is used for some html parsing. Jinja2 is used for html templating. 
 
@@ -75,7 +75,7 @@ Follow these steps to set up your texedbook project.
 After making changes to any of your .tex files run step 6 and 7 from "Set up your project" and the .html files will be updated. If you add a new pdf figure you will need to run step 5 as well.
 
 
-## Quirks
+## Quarks
 
 1. Since equations and equation referenceing in TexEdBook is done with Mathjax, and each chapter is compiled into its own htlm page, references can only be made to equation within the chapter. For example, if you label an equation in Chapter 1 
 
@@ -89,3 +89,16 @@ After making changes to any of your .tex files run step 6 and 7 from "Set up you
 
     To reference equations between Chapters, you might consider referencing the section/subsection the equation is contained in (to provide a hyperlink), and explicitly stating the equation/variable of interest.
 
+## Homogenizing .tex files
+
+Run these commands in vim to help homogenize the .tex files. After running save and quit with :wq
+
+1. To replace all $$ x=y $$ with \begin{equation} x=y \end{equation}
+
+    `:%s/\$\$\(\_.\{-}\)\$\$/\\begin{equation}\1\\end{equation}/g`
+
+1. To replace all /( x=y /) with $ x=y $
+
+    `:%s/\\(/\$/g`
+    `:%s/\\)/\$/g`
+    
