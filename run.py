@@ -3,7 +3,7 @@ import os
 import sys
 
 if len(sys.argv) < 2:
-    print("texedbook requires path to latex directory")
+    print("texedbook requires path to latex project directory")
     exit()
 
 latex_dir = os.path.join(sys.argv[1], '*')

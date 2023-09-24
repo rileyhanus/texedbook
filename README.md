@@ -1,15 +1,15 @@
 # TexEdBook
 
 ## Overview:
-This is a package that converts any latex project directly into an html-based learning environment which supports interactive digital content. All functions and environments native to latex are supported. In addition, multi-media content such as videos and live math workspaces (powered by CalcHub) can be implimented directly in the latex code using custom environments provided in this package. Therefore, this package is backwards compatible with legacy educational content, and is also capable of supporting html-based interactive content moving forward. 
+This is a package that converts any latex project directly into a ready to publish website. This allows authors to publish directly readers. The resulting website supports interactive digital content. Most functions and environments native to latex are supported. Any feature that can be embedded in an html page can be implimented directly in the latex code using custom environments provided in this package. Therefore, this package is backwards compatible with legacy, latex based, educational content, and is also capable of supporting html-based interactive content moving forward. 
 
 ## Multi-media content:
-Naturally, print and pdf formats do not support many multi-media formats that are desired in a digital learning environment (videos, math workspaces, problem sets and quizzes). When this type of content is included in the latex document, the pdf render simply provides a hyperlink to the url used to access the digital content is given. This is analogous to a print textbook containing a CD with digital content. When TexEdBook compiles the latex project into an interactive html-based learning environment, the multi-media content is imbedded into the web page and is fully functional.
+When TexEdBook compiles the latex project into an interactive html-based learning environment, the multi-media content is imbedded into the web page and is fully functional. Naturally, print and pdf formats do not support many multi-media formats that are desired in a digital learning environment (videos, math workspaces, problem sets and quizzes). When this type of content is included in the latex document, the rendered pdf simply provides a hyperlink to the url used to access the digital content is given. This is analogous to a print textbook containing a CD with digital content. 
 
 ## Packages used:
-The input of this package is a latex document. If the document compiles with errors, these errors may propagate into the html pages generated. The package tex4ebook, which uses tex4ht internally, is used to generate a .epub file from the latex document. This .epub is essentially a zipped up folder containing an .ncx navigation file and a series of .html files associated with each section. tex4ebook uses an config.cfg file to designate configuration settings which control how certain latex features are converted to latex. The default usage of the config.cfg file requires all math content, both displayed and in-line math, to be rendered as svg files and place in the html code. The config.cfg file is also where we tell tex4ht how to handle custom environments. 
+The input of this package is a latex document that compiles successfully. If the document compiles with errors, these errors may propagate into the html pages generated. The package tex4ebook, which uses tex4ht internally, is used to generate an .epub file from the latex document. This .epub is essentially a zipped up folder containing an .ncx navigation file and a series of .html files associated with each section. tex4ebook uses the `config.cfg` file to designate configuration settings which control how certain latex features are converted to html. The default usage of the `config.cfg` file uses mathjax to render equations. The `config.cfg` file is also where we tell tex4ht how to handle custom environments. 
 
-Within make_texedbook.py, ebooklib is used to parse the .epub file and build objects containing all of the content. Beautiful Soup 4 is used for some html parsing. Jinja2 is used for html templating. 
+Within `make-texedbook.py`, ebooklib is used to parse the .epub file and build objects containing all of the content. Beautiful Soup 4 is used for some html parsing. Jinja2 is used for html templating. 
 
 ## Set up texedbook:
 Follow these steps to set up your texedbook project.
@@ -41,7 +41,7 @@ Follow these steps to set up your texedbook project.
 
 1. Create a virtual environment to work in by running
 
-    `python3 -m venv venv`
+    `python -m venv venv`
 
     `source venv/bin/activate`
 
@@ -49,30 +49,19 @@ Follow these steps to set up your texedbook project.
 
     `pip install -r requirements.txt`
 
+### Running texedbook
 1. Make sure your main.tex document is finished and compiles without errors.  To Compile main.tex, I recommend using VSCode with the 'Tex Workshop' plugin installed. In VSCode you can compile by simply saving any .tex file in your project.
 
-1. Make sure every figure.pdf has a corresponding figure.xbb by executing the following in the terminal. 
+1. Run texedbook
 
-    `cd ./latex`
-
-    `ebb -x *.pdf`
-
-1. Create your main.epub file along with the corresponding .html files for all the Chapters by running the following command in the terminal.
-
-    `tex4ebook -c config.cfg main.tex`
-
-1. Extract the html and navigation meta-data, and template the content onto template.html which renders the interactive learning environment.
-    
-    `cd ../`
-
-    `python3 make_texedbook.py`
+    `python run.py ./path/to/latex/project/folder`
  
-1. Open an of the the templated html files to view the html-based learning environment.
+1. Open any of the the templated html files to view the html-based learning environment.
 
 
 ## Editing your project:
 
-After making changes to any of your .tex files run step 6 and 7 from "Set up your project" and the .html files will be updated. If you add a new pdf figure you will need to run step 5 as well.
+After making changes to any of your .tex files, simply save your changes and run texedbook.
 
 
 ## Quarks
@@ -88,17 +77,4 @@ After making changes to any of your .tex files run step 6 and 7 from "Set up you
     within Chapter 1. It will through '???' in the rendered html if that same mjref is used in Chapter 2.
 
     To reference equations between Chapters, you might consider referencing the section/subsection the equation is contained in (to provide a hyperlink), and explicitly stating the equation/variable of interest.
-
-## Homogenizing .tex files
-
-Run these commands in vim to help homogenize the .tex files. After running save and quit with :wq
-
-1. To replace all $$ x=y $$ with \begin{equation} x=y \end{equation}
-
-    `:%s/\$\$\(\_.\{-}\)\$\$/\\begin{equation}\1\\end{equation}/g`
-
-1. To replace all /( x=y /) with $ x=y $
-
-    `:%s/\\(/\$/g`
-    `:%s/\\)/\$/g`
     
