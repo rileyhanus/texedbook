@@ -12,6 +12,7 @@ if os.path.exists('.build'):
     os.system('rm -r .build')
 os.system('mkdir .build')
 os.system('mkdir .build/latex')
+print(latex_dir)
 os.system('rsync -rv --exclude=.git ' + latex_dir + ' .build/latex' )
 
 tex_files = glob.glob(os.path.join('.build', 'latex', '*.tex'))
@@ -23,9 +24,17 @@ os.system(
     '''
     source venv/bin/activate
     cd .build/latex
-    ebb -x *.pdf
     tex4ebook -c ../../config.cfg main.tex
     cd ../..
     python3 make-texedbook.py
     '''
 )
+
+x =     '''
+    source venv/bin/activate
+    cd .build/latex
+    ebb -x *.pdf
+    tex4ebook -c ../../config.cfg main.tex
+    cd ../..
+    python3 make-texedbook.py
+    '''

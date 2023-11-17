@@ -93,11 +93,14 @@ def clean_html(soup):
 
 
 def template_ebook(book_epub, sidebar_element_html, sidebar_html, template_html, css):
-    
+    print("Remaking .build/")
     target = os.path.join('.build', 'output')
-    if not os.path.exists(target):
-        print('here')
-        os.makedirs(target)
+    if os.path.exists(target):
+        shutil.rmtree(target)
+    os.makedirs(target)
+
+    print("Copying in the previously compiled latex project")
+    
     
     print("Reading .epub file and building an Epub object...")
     book = epub.read_epub(book_epub)
@@ -192,7 +195,8 @@ def template_ebook(book_epub, sidebar_element_html, sidebar_html, template_html,
         if os.path.exists(".build/output/figures"):
             shutil.rmtree(".build/output/figures")
         
-        shutil.copytree(".build/latex/figures", ".build/output/figures")
+        if os.path.exists(".build/latex/figures"):
+            shutil.copytree(".build/latex/figures", ".build/output/figures")
         # svg_sources = glob.glob(os.path.join('.', 'latex', '*.svg'))
         # png_sources = glob.glob(os.path.join('.', 'latex', '*.png'))
         # pdf_sources = glob.glob(os.path.join('.', 'latex', '*.pdf'))

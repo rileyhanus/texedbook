@@ -1,0 +1,29 @@
+\documentclass{article}
+\usepackage[T1]{fontenc}
+\usepackage[utf8x]{inputenc}
+\usepackage{textgreek}
+\include{texedbook_envs}
+
+
+\begin{document}
+
+\section{Supported Document Features}
+In this chapter we will demonstrate native latex document features that are explicitly supported by texedbook. The features include Equations, Figures, Lists, and Tables.
+
+Before one writes a thesis or textbook, it is difficult to appreciate how critical the proper handling of standard document features is. Without a framework to efficiently write and cross-reference equations, figures, tables, etc. in real time, writing anything with technical substanance becomes impossible. Latex, despite its quarks, is a very good framework to manage these critical writing tools.
+
+\subsection{Citations}
+The native bibliography features are maintained \cite{Ohno2007}. 
+
+\subsection{Equations}
+Equations are an inherently tricky problem for digital publishing. The core of the problem lies in the fact that html was designed around the standard alpha numeric alphabet, and math requires a wider range of complex symbols and typesetting. The default useage of texedbook leverages mathjax, allowing all of the native latex equations, that the author spent so much time perfecting, is reliably reproduced in the html output.
+
+
+\subsubsection{Inline equations}
+In equations can be included using both methods: $n\lambda=2d \sin \theta$ or \( n\lambda=2d \sin \theta \). In addition unicode characters can be directly writen in the latex, and they rendered in the latex and preserved through into the html output, 
+Γσµ and such symbols §¶∂∇ a.
+
+\bibliography{sample}
+
+\end{document}
+
