@@ -22,20 +22,11 @@
     <script async='async' id='MathJax-script' type='text/javascript' src='https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js'></script>   
 </head>
 
-
-<div class="relative min-h-screen md:flex">
-
-    <!-- mobile menu bar -->
-    <div>
-    <div class="mobile-nav-bar flex sticky top-0 bg-gray-200 justify-between md:hidden">
-
-        <!-- logo -->
-        <a class="text-2xl font-bold font-sans h-12 p-2" href='templated_main.html'>
-            {{ title }} 
-        </a>
-
+<!-- mobile menu bar -->
+<header class="bg-white sticky top-0 z-10">
+    <div class="mobile-nav-bar flex justify-end md:hidden">
         <!-- mobile menu button  -->
-        <button class="mobile-nav-button">
+        <button class="mobile-nav-button h-12 p-2">
             <svg class="h-6 w-12" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
               </svg>
@@ -43,18 +34,25 @@
     </div>
 
     <div class="mobile-nav left-0 right-0 outline md:hidden hidden">
+        <a href="templated_main.html" class="{{standard_display_options}} group flex items-center py-1 font-medium">
+            Title
+        </a>
         {{ sidebar }}
     </div>
 
-    </div>
+</header>
 
+<div class="relative min-h-screen md:flex">
     <!-- sidebar -->
     <div class="sidebar fixed overflow-auto bg-white w-56 top-0 bottom-0 space-y-4 transform -translate-x-full md:translate-x-0 transition duration-300 ease-in-out border-gray-600">
-        <!--  -->
+        <!--  
         <a href='templated_main.html'>
             <img class="inline-block h-90 w-56"
                 src="./coverpage.png"
                 alt=""/> 
+        </a> -->
+        <a class="bg-gray-75 text-black hover:bg-gray-200 hover:text-gray-900 text-lg font-bold px-4 group flex items-center py-4 font-medium" href='templated_main.html'>
+            {{ title }} 
         </a>
         
         <!-- sidebar content -->
@@ -79,6 +77,11 @@
         mobilenav.classList.toggle("hidden");
         btn.classList.toggle("bg-gray-600")
 
+    });
+
+    mobilenav.addEventListener("click", () => {
+        mobilenav.classList.toggle("hidden");
+        btn.classList.toggle("bg-gray-600");
     });
 </script>
 

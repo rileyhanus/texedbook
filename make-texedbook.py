@@ -89,18 +89,15 @@ def clean_html(soup):
     soup = str(soup)
     # soup = soup.encode('unicode_escape')
     soup = soup.replace(r"\relax", r"")
-    return BeautifulSoup(soup)
+    return BeautifulSoup(soup, features="lxml")
 
 
-def template_ebook(book_epub, sidebar_element_html, sidebar_html, template_html, css):
+def template_ebook(book_epub, sidebar_element_html, sidebar_html, template_html, css, one_page=False):
     print("Remaking .build/")
     target = os.path.join('.build', 'output')
     if os.path.exists(target):
         shutil.rmtree(target)
     os.makedirs(target)
-
-    print("Copying in the previously compiled latex project")
-    
     
     print("Reading .epub file and building an Epub object...")
     book = epub.read_epub(book_epub)
@@ -124,6 +121,7 @@ def template_ebook(book_epub, sidebar_element_html, sidebar_html, template_html,
 
     print("Constructing TOC list based on .ncx content...")
     toc_list = toc_loop(book.toc)
+    # print(toc_list)
     item_name_list = [row[1].split('#')[0] for row in toc_list]
 
     focus_list = []
@@ -137,89 +135,131 @@ def template_ebook(book_epub, sidebar_element_html, sidebar_html, template_html,
     document_name_list = []
     for item in document_item_list:
         document_name_list.append(item.get_name())
-    
-    print('Make title page template_main.html...')
-    title_page_html = book.get_item_with_href("main.html").get_content()
-    soup = BeautifulSoup(title_page_html, 'html.parser')
-    body = soup.body
-    sidebar_content = ''
-    for element in toc_list:
-        display_options = standard_display_options
-        sidebar_content = sidebar_content + template_sidebar_element.render(sidebar_element_href="templated_" + element[1],  sidebar_element_title=element[0], display_options=display_options + sidebar_font_sizes[element[2]] + " px-" + str(4+4*element[2])) + '\n'
-        sidebar = template_sidebar.render(sidebar_content=sidebar_content)
-    templated_html = template_body.render(title=book.title, sidebar=sidebar, body=body)
-    with open(".build/output/templated_" + "main.html", "w") as file:
-        file.write(templated_html)
 
-
-    print("\nLooping through Epub Document Items...")
-    for item in book.get_items():
-        if item.get_name() in item_name_list:
-            document_name = item.get_name()
-            print("\nDocument " + document_name + " ...")
-            sidebar_content = ''
-            print("Building Sidebar...")
-            for element in toc_list:
-                if document_name == element[1].split('#')[0]:
-                    display_options = focus_display_options
-                else:
-                    display_options = standard_display_options
-                sidebar_content = sidebar_content + template_sidebar_element.render(sidebar_element_href="templated_" + element[1],  sidebar_element_title=element[0], display_options=display_options + sidebar_font_sizes[element[2]] + " px-" + str(4+4*element[2])) + '\n'
-            sidebar = template_sidebar.render(sidebar_content=sidebar_content)
-
-            print("Extracting body...")
-            content = item.get_content()
-            soup = BeautifulSoup(content, 'html.parser')
-            calchub_insert_iframe(soup)
-            youtube_insert_iframe(soup)
-            trinket_insert_iframe(soup)
-            panopto_insert_iframe(soup)
-            soup = clean_html(soup)
-            body = soup.body
-            
-            # fixing hrefs such that they point to templated_xxx.html instead of xxx.html
-            a_tags = body.find_all("a", href=True) 
-            for a_tag in a_tags:
-                href = a_tag['href']
-                for document_name in document_name_list:
-                    if document_name in href:
-                        href = href.replace(document_name, "templated_" + document_name)
-                        a_tag['href'] = href
-                        
-            print("Templating page and writing templated html...")
-            templated_html = template_body.render(title=book.title, sidebar=sidebar, body=body)
-            with open(".build/output/templated_" + item.get_name(), "w") as file:
-                file.write(templated_html)
-
-        # copy figure files to the ./output/ directory
-        if os.path.exists(".build/output/figures"):
-            shutil.rmtree(".build/output/figures")
+    if one_page:
+        print('Make title page template_main.html...')
+        title_page_html = book.get_item_with_href("main.html").get_content()
+        soup = BeautifulSoup(title_page_html, 'html.parser')
+        body = soup.body
+        sidebar_content = ''
+        for element in toc_list:
+            display_options = standard_display_options
+            sidebar_content = sidebar_content + template_sidebar_element.render(sidebar_element_href="templated_main.html#" + element[1].split('#')[1],  
+                                                                                sidebar_element_title=element[0], 
+                                                                                display_options=display_options + sidebar_font_sizes[element[2]] + " px-" + str(4+4*element[2])) + '\n'
+            sidebar = template_sidebar.render(sidebar_content=sidebar_content, standard_display_options=standard_display_options + sidebar_font_sizes[0] + " px-" + str(4+4*0)) + '\n'
+        templated_html = template_body.render(title=book.title, sidebar=sidebar, body=body, standard_display_options=standard_display_options + sidebar_font_sizes[0] + " px-" + str(4+4*0)) + '\n'
+        templated_soup = BeautifulSoup(templated_html, 'html.parser')
         
-        if os.path.exists(".build/latex/figures"):
-            shutil.copytree(".build/latex/figures", ".build/output/figures")
-        # svg_sources = glob.glob(os.path.join('.', 'latex', '*.svg'))
-        # png_sources = glob.glob(os.path.join('.', 'latex', '*.png'))
-        # pdf_sources = glob.glob(os.path.join('.', 'latex', '*.pdf'))
-        # try:
-        #     for source in svg_sources:
-        #         shutil.copy(source, target)
-        #     for source in png_sources:
-        #         shutil.copy(source, target)
-        #     for source in pdf_sources:
-        #         shutil.copy(source, target)
-        # except IOError as e:
-        #     print("Unable to copy file. %s" % e)
-        # except:
-        #     print("Unexpected error:", sys.exc_info())
-
-        # copy the required .css file to the .build/output directory
+        print("\nLooping through Epub Document Items and appending body to main.html...")
+        for item in book.get_items():
+            if item.get_name() in item_name_list:
+                print("Extracting body...")
+                new_content = item.get_content()
+                new_soup = BeautifulSoup(new_content, 'html.parser')
+                # fixing hrefs such that they point to templated_xxx.html instead of xxx.html
+                a_tags = new_soup.body.find_all("a", href=True) 
+                for a_tag in a_tags:
+                    href = a_tag['href']
+                    for document_name in document_name_list:
+                        if document_name in href:
+                            href = href.replace(document_name, "templated_main.html")
+                            a_tag['href'] = href
+                calchub_insert_iframe(new_soup)
+                youtube_insert_iframe(new_soup)
+                trinket_insert_iframe(new_soup)
+                panopto_insert_iframe(new_soup)
+                new_soup = clean_html(new_soup)
+                new_body_html = new_soup.find('body').findChildren(recursive=False)
+                for i in range(len(new_body_html)):
+                    templated_soup.body.append(new_body_html[i])
+        with open(".build/output/templated_" + "main.html", "w") as file:
+            file.write(str(templated_soup))
+    else:  
+        print('Make title page template_main.html...')
+        title_page_html = book.get_item_with_href("main.html").get_content()
+        soup = BeautifulSoup(title_page_html, 'html.parser')
+        body = soup.body
+        sidebar_content = ''
+        for element in toc_list:
+            display_options = standard_display_options
+            sidebar_content = sidebar_content + template_sidebar_element.render(sidebar_element_href="templated_" + element[1],  sidebar_element_title=element[0], display_options=display_options + sidebar_font_sizes[element[2]] + " px-" + str(4+4*element[2])) + '\n'
+            sidebar = template_sidebar.render(sidebar_content=sidebar_content)
+        templated_html = template_body.render(title=book.title, sidebar=sidebar, body=body)
+        with open(".build/output/templated_" + "main.html", "w") as file:
+            file.write(templated_html)
         shutil.copy(css, '.build/output')
+        
+        print("\nLooping through Epub Document Items...")
+        for item in book.get_items():
+            if item.get_name() in item_name_list:
+                document_name = item.get_name()
+                print("\nDocument " + document_name + " ...")
+                sidebar_content = ''
+                print("Building Sidebar...")
+                for element in toc_list:
+                    print(element)
+                    if document_name == element[1].split('#')[0]:
+                        display_options = focus_display_options
+                    else:
+                        display_options = standard_display_options
+                    sidebar_content = sidebar_content + template_sidebar_element.render(sidebar_element_href="templated_" + element[1],  sidebar_element_title=element[0], display_options=display_options + sidebar_font_sizes[element[2]] + " px-" + str(4+4*element[2])) + '\n'
+                sidebar = template_sidebar.render(sidebar_content=sidebar_content)
+
+                print("Extracting body...")
+                content = item.get_content()
+                soup = BeautifulSoup(content, 'html.parser')
+                calchub_insert_iframe(soup)
+                youtube_insert_iframe(soup)
+                trinket_insert_iframe(soup)
+                panopto_insert_iframe(soup)
+                soup = clean_html(soup)
+                body = soup.body
+                
+                # fixing hrefs such that they point to templated_xxx.html instead of xxx.html
+                a_tags = body.find_all("a", href=True) 
+                for a_tag in a_tags:
+                    href = a_tag['href']
+                    for document_name in document_name_list:
+                        if document_name in href:
+                            href = href.replace(document_name, "templated_" + document_name)
+                            a_tag['href'] = href
+                            
+                print("Templating page and writing templated html...")
+                templated_html = template_body.render(title=book.title, sidebar=sidebar, body=body)
+                with open(".build/output/templated_" + item.get_name(), "w") as file:
+                    file.write(templated_html)
+
+    # copy figure files to the ./output/ directory
+    if os.path.exists(".build/output/figures"):
+        shutil.rmtree(".build/output/figures")
+    
+    if os.path.exists(".build/latex/figures"):
+        shutil.copytree(".build/latex/figures", ".build/output/figures")
+    # svg_sources = glob.glob(os.path.join('.', 'latex', '*.svg'))
+    # png_sources = glob.glob(os.path.join('.', 'latex', '*.png'))
+    # pdf_sources = glob.glob(os.path.join('.', 'latex', '*.pdf'))
+    # try:
+    #     for source in svg_sources:
+    #         shutil.copy(source, target)
+    #     for source in png_sources:
+    #         shutil.copy(source, target)
+    #     for source in pdf_sources:
+    #         shutil.copy(source, target)
+    # except IOError as e:
+    #     print("Unable to copy file. %s" % e)
+    # except:
+    #     print("Unexpected error:", sys.exc_info())
+
+    # copy the required .css file to the .build/output directory
+    shutil.copy(css, '.build/output')
+    shutil.copy('.build/latex/main.pdf', '.build/output')
 
 
 
-template_ebook('.build/latex/main-epub/main.epub', "./templates/sidebar_element.html", "./templates/sidebar.html", "./templates/template.html", "./templates/custom.css")
-
-
-
-
-
+template_ebook(".build/latex/main-epub/main.epub", 
+               "./templates/sidebar_element.html",
+               "./templates/sidebar.html", 
+               "./templates/template.html", 
+               "./templates/custom.css", 
+               one_page=True)

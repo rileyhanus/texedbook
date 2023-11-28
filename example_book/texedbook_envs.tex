@@ -1,0 +1,112 @@
+\usepackage[framemethod=TikZ]{mdframed}
+
+% \newcounter{iframe}[chapter]\setcounter{iframe}{0}
+% \renewcommand{\theiframe}{\arabic{chapter}.\arabic{iframe}}
+\newenvironment{iframe}[1][]{%
+% \refstepcounter{iframe}%
+\ifstrempty{#1}%
+{\mdfsetup{%
+frametitle={%
+\tikz[baseline=(current bounding box.east),outer sep=0pt]
+\node[anchor=east,rectangle,fill=blue!20]
+{\strut Digital Content};}}
+}%
+{\mdfsetup{%
+frametitle={%
+\tikz[baseline=(current bounding box.east),outer sep=0pt]
+\node[anchor=east,rectangle,fill=blue!20]
+{\strut Digital Content~:~#1};}}%
+}%
+\mdfsetup{innertopmargin=10pt,linecolor=blue!20,%
+linewidth=2pt,topline=true,%
+frametitleaboveskip=\dimexpr-\ht\strutbox\relax
+}
+\begin{mdframed}[]}{\end{mdframed}}
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% calchub environment: for embedding a calchub workspace                       %
+% texedbook compatible: html=embedded work space, pdf=multimedia box w/ href   %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newenvironment{calchub}
+    {\begin{iframe}[CalcHub Workspace]
+    }
+    {\end{iframe}
+    }
+
+\newcommand{\InsertCalchub}[3]{ 
+   % 1st input: display name 
+   % 2nd input: href
+   % 3rd input: description
+   \begin{calchub}
+      \href{#2}{#1} | #3
+   \end{calchub}
+} 
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% video environment: for embedding videos                                      %
+% texedbook compatible: html=embedded video, pdf=multimedia box w/ href        %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newenvironment{youtube}
+   {\begin{iframe}[Video]
+   }
+   {\end{iframe}
+   }
+
+\newcommand{\InsertYoutube}[3]{ 
+   % 1st input: display name 
+   % 2nd input: href
+   % 3rd input: description
+   \begin{youtube}
+      \href{#2}{#1} | #3
+   \end{youtube}
+} 
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% python coding environment: for coding practice                               %
+% texedbook compatible: html=embedded trinket, pdf=multimedia box w/ href      %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\newenvironment{trinket}
+   {\begin{iframe}[Python coding environment]
+   }
+   {\end{iframe}
+   }
+
+\newcommand{\InsertTrinket}[3]{ 
+   % 1st input: display name 
+   % 2nd input: href
+   % 3rd input: description
+   \begin{trinket}
+      \href{#2}{#1} | {#3}
+   \end{trinket}
+} 
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% panopto environment: for viewing videos hosted by panopto                    %
+% texedbook compatible: html=embedded iframe, pdf=multimedia box w/ href       %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\newenvironment{panopto}
+   {\begin{iframe}[Video]
+   }
+   {\end{iframe}
+   }
+
+\newcommand{\InsertPanoptoVideo}[3]{ 
+   % 1st input: display name 
+   % 2nd input: href
+   % 3rd input: description
+   \begin{panopto}
+      \href{#2}{#1} | {#3}
+   \end{panopto}
+} 
+
+% Mathjax equation referencing
+\newcommand\mjref[1]{\ref{#1}}
+

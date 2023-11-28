@@ -24,6 +24,7 @@ os.system(
     '''
     source venv/bin/activate
     cd .build/latex
+    latexmk main.tex
     tex4ebook -c ../../config.cfg main.tex
     cd ../..
     python3 make-texedbook.py

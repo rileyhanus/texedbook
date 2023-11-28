@@ -1,5 +1,27 @@
+html {
+  scroll-behavior: smooth;
+}
+
+a {
+  scroll-margin: 50px;
+}
+
+.prose hr {
+  border-top-width: 0;
+}
+
 .font-Georgia {
   font-family: Georgia, Cambria, "Times New Roman", Times, serif;
+}
+
+.cmtt-10 {
+  font-family:Menlo,Monaco,Consolas,"Liberation Mono","Courier New",monospace;
+  font-size: 0.875em;
+}
+
+.titleHead {
+  font-family: sans-serif;
+  margin-top: 1em !important;
 }
 
 .prose {
@@ -7,7 +29,18 @@
   line-height: 1.15;
 }
 
-.titlemark {
+.abstract{
+  margin-inline: 5em;
+}
+
+@media (max-width: 900px) {
+  .abstract{
+    margin-inline: 0
+  }
+
+}
+
+.abstracttitle{
   font-family: sans-serif;
 }
 
@@ -23,74 +56,83 @@
   font-family: sans-serif;
 }
 
+.likesectionHead{
+  font-family: sans-serif;
+}
+
 img.math {
   display: inline;
   width: auto;
   height:90%
 }
 
-img.math-display{
+img.math-display {
   margin-left: auto;
   margin-right: auto;
 }
 
-.equation-label{
+.equation-label {
   margin-top:auto;
   margin-bottom:auto;
 }
 
-.prose hr{
+.prose hr {
   margin-top: 0em;
   margin-bottom: 0em;
 }
 
-.prose img{
+.prose img {
   margin-top: 0em;
   margin-bottom: 0em;
 }
 
-.prose tbody td{
+.prose tbody td {
   padding-top: 0em;
   padding-bottom: 0em;
 }
 
-iframe{
+iframe {
   margin-left:auto;
   margin-right:auto
 }
 
-div.trinket p{
+div.trinket p {
   font-family:sans-serif;
 }
 
-div.calchub p{
+div.calchub p {
   font-family:sans-serif;
 }
 
-div.youtube p{
+div.youtube p {
   font-family:sans-serif;
 }
 
-div.panopto p{
+div.panopto p {
   font-family:sans-serif;
 }
 
-div.figure img{
+div.figure img {
   width:100%
 }
 
-.table{
+.table {
   margin: auto
 }
 
-p.indent{
+p.indent {
   text-indent:2em
 }
 
-li.itemize::before{
+li.itemize::before {
   text-indent:2em
 }
 
-button:focus{
+button:focus {
   outline: none
+}
+
+[href='#']{
+  position: absolute;
+  transform: translateY(-50vh);
 }

@@ -1,0 +1,2 @@
+{"rule":"FILE_EXTENSIONS_CASE","sentence":"^\\QThe texedbook code base is a tool for publishing articles and textbooks online without the need to learn html, css, and javascript.\\E$"}
+{"rule":"MORFOLOGIK_RULE_EN_US","sentence":"^\\QFor example, Eq. eq:braggslaw is Bragg's Law, commonly used to find diffraction conditions of light of wavelength \\E(?:Dummy|Ina|Jimmy-)[0-9]+\\Q interacting with a crystal with lattice spacing \\E(?:Dummy|Ina|Jimmy-)[0-9]+\\Q at an incident angle of \\E(?:Dummy|Ina|Jimmy-)[0-9]+\\Q.\\E$"}
