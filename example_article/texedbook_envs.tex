@@ -1,7 +1,18 @@
-\usepackage[framemethod=TikZ]{mdframed}
+% Copyright 2022 Riley Hanus, PhD
+% Unauthorized copying and use of this file, via any medium is strictly prohibited
+% Proprietary and confidential
+% Written by Riley Hanus <hanusriley@gmail.com>, November 2022
 
+\usepackage[framemethod=TikZ]{mdframed} 
+\usepackage{verbatim}
+\usepackage{hyperref}
+\usepackage{xstring}
+\usepackage{listofitems}
+\usepackage{substr}
+\usepackage{cprotect}
 % \newcounter{iframe}[chapter]\setcounter{iframe}{0}
 % \renewcommand{\theiframe}{\arabic{chapter}.\arabic{iframe}}
+
 \newenvironment{iframe}[1][]{%
 % \refstepcounter{iframe}%
 \ifstrempty{#1}%
@@ -23,7 +34,26 @@ frametitleaboveskip=\dimexpr-\ht\strutbox\relax
 }
 \begin{mdframed}[]}{\end{mdframed}}
 
+\newcommand{\parseiframe}[1]{\setsepchar{"}\readlist\iframelist{#1}
+}
 
+\newcommand{\iframeurl}[2]{
+    \parseiframe{#1}
+    \foreachitem \i \in \iframelist{
+        \IfSubStringInString{://www.}{\i}{ \let\result=\i}{}
+    }
+    \href{\result}{#2}
+}
+
+\newcommand{\InsertIframe}[4]{
+    % #1: html code for <iframe>
+    % #2: display name for hyperlink in 'Digital Content box' in pdf
+    % #3: caption
+    % #4: type of media for 'Digital Content: xxx'
+   \begin{iframe}[#4]
+      \iframeurl{#1}{#2} | #3
+   \end{iframe}
+}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % calchub environment: for embedding a calchub workspace                       %
@@ -36,11 +66,11 @@ frametitleaboveskip=\dimexpr-\ht\strutbox\relax
     }
 
 \newcommand{\InsertCalchub}[3]{ 
-   % 1st input: display name 
-   % 2nd input: href
+   % 1st input: href 
+   % 2nd input: display name
    % 3rd input: description
    \begin{calchub}
-      \href{#2}{#1} | #3
+      \href{#1}{#2} | #3
    \end{calchub}
 } 
 
@@ -55,12 +85,12 @@ frametitleaboveskip=\dimexpr-\ht\strutbox\relax
    {\end{iframe}
    }
 
-\newcommand{\InsertYoutube}[3]{ 
-   % 1st input: display name 
-   % 2nd input: href
+\newcommand{\InsertYouTube}[3]{ 
+   % 1st input: href   
+   % 2nd input: display name 
    % 3rd input: description
    \begin{youtube}
-      \href{#2}{#1} | #3
+      \href{#1}{#2} | #3
    \end{youtube}
 } 
 
@@ -77,11 +107,11 @@ frametitleaboveskip=\dimexpr-\ht\strutbox\relax
    }
 
 \newcommand{\InsertTrinket}[3]{ 
-   % 1st input: display name 
-   % 2nd input: href
+   % 1st input: href   
+   % 2nd input: display name 
    % 3rd input: description
    \begin{trinket}
-      \href{#2}{#1} | {#3}
+      \href{#1}{#2} | {#3}
    \end{trinket}
 } 
 
@@ -99,11 +129,11 @@ frametitleaboveskip=\dimexpr-\ht\strutbox\relax
    }
 
 \newcommand{\InsertPanoptoVideo}[3]{ 
-   % 1st input: display name 
-   % 2nd input: href
+   % 1st input: href   
+   % 2nd input: display name 
    % 3rd input: description
    \begin{panopto}
-      \href{#2}{#1} | {#3}
+      \href{#1}{#2} | {#3}
    \end{panopto}
 } 
 

@@ -3,3 +3,4 @@ Texedbook
 Hanus
 texedbook
 javascript
+mathjax

@@ -1,49 +1,72 @@
+% Copyright 2023 Riley Hanus, PhD
+% Unauthorized copying and use of this file, via any medium is strictly prohibited
+% Proprietary and confidential
+% Written by Riley Hanus <hanusriley@gmail.com>, November 2023
+
 \documentclass{article}
 \input{texedbook_envs}
-\usepackage{hyperref}
-\usepackage{verbatim}
 
-\title{Author's guide to texedbook}
-\author{Riley Hanus}
+\title{Author's guide to \texttt{texedbook}}
+\author{Riley Hanus, PhD}
+\date{}
 
 \begin{document}
  
 \maketitle
 
 \begin{abstract}
-\noindent The \verb'texedbook' code base is a tool for publishing articles and textbooks online without the need to learn html, css, and javascript. The author writes and compiles the content in latex and (after following the set-up instructions in the README.md) runs 
+The \verb'texedbook' code base is a tool for publishing articles, educational content, and textbooks online without the need to learn html, css, and javascript. The author writes and compiles the content in latex using \verb'latexmk' and (after following the set-up instructions in the \verb'README.md') runs 
 \begin{verbatim}
 python run.py ./path/to/latex/project/directory
 \end{verbatim}
-which generates a collection of html and css files that can be directly published online. The product is a computer and mobile friendly webpage,  In addition to supporting most of the native latex features, texedbook provides tools for embedding digital and interactive content such as videos, quizzes, code editors and compilers, etc. 
+which generates a collection of html and css files in \verb'.build/output/' that can be directly published online. The product is a computer and mobile friendly webpage, with all document features preserved and all content embedded.  In addition to supporting most of the native latex features, \verb'texedbook' provides tools for embedding digital and interactive content such as videos, quizzes, code editors and compilers, etc. 
 
-\noindent This article acts as an author's guide to \verb'texedbook' and will demonstrate the document features that are explicitly supported, and the specific way they must be used for a clean output html page.  First, the native latex capabilities will be demonstrated including figures, equations, tables, cross-referencing, citations, etc. Then the \verb'texedbook' specific features will be presented which allow the author to embed digital content (essentially anything that can be contained in an iframe) straight from the latex document. 
+This article acts as an author's guide to \verb'texedbook' (\verb'tex': Latex based, \verb'ed': education focused, \verb'book': classic textbook functionality maintained) and will demonstrate the document features that are explicitly supported, and the specific way they must be used to ensure a clean output html page.  First, the native latex capabilities will be demonstrated including figures, equations, tables, cross-referencing, citations, etc. Then the \verb'texedbook' specific features will be presented which allow the author to embed digital content (anything that can be contained in an iframe) into the resulting webpage straight from the latex document. 
 \end{abstract}
 
 \section{Motivation for texedbook project}
 
-When writing an article or textbook, especially one that is technical in nature, the need for proper handling of standard document features is glaring. Without a framework to efficiently manage citations, cross-reference document items (sections, equations, figures, etc.), and write math in real time, writing anything with technical substance becomes prohibitively difficult. Latex, despite its quarks, is a very good framework to manage these critical writing tools and compiling beautifully typeset pdf documents.
+When writing anything technical in nature, the need for proper writing tools is glaring. Without a framework to efficiently manage citations, cross-reference document items (e.g. sections, equations, figures), write math, etc., writing anything with technical substance becomes prohibitively difficult. Latex, despite its quirks, is a very good framework to manage these critical writing tools and compiling beautifully typeset pdf documents.
 
-At the same time, publishing and education has transitioned to digital-first for the consumer, yet publishers still cling to a print-first model. There is a clear need for a tool enabling authors to publish digital-first articles, books, and courses. The natural medium this digital-first publishing is an html/css/js based webpage. 
+At the same time, publishing and education has transitioned to a digital-first experience for the consumer, yet publishers still cling to a print-first model. There is a clear need for a tool enabling authors to publish digital-first articles, books, and courses. The natural medium for this digital-first publishing is an html, css, and javascript based webpage. 
 
-\verb'texedbook' combines the strengths of latex for authoring articles and books with the versatility and universality of an html/css/js based webpage.  
+\verb'texedbook' combines the strengths of latex for authoring articles and books with the versatility and universality of an interactive webpage.  
+
+\section{Required file naming and structure}
+\verb'texedbook' requires specific file naming and those files must live in specific locations within your project directory. This ensures proper handling of figures and that the html code generated from your project can be templated properly into your final result. 
+
+Specifically, the main latex document must be called \verb'main.tex' and must be in the base of your project directory. \verb'texedbook_envs.tex' contains required commands and environments, and best practice is to leave it right next to \verb'main.tex'. In addition, if your project has references, it is best practice to leave \verb'references.bib' next to \verb'main.tex' as well. You may use \verb'\input{doc1}' in the preamble and \verb'\include{doc2}' in the document as usual. However, they must be called as \verb'\include{doc2}', not \verb'\include{doc2.tex}' since will tell the \verb'latexpand' command (native to the full latex installation and used here) to look for \verb'doc2.tex.tex'.  Any figures your project may have must be in pdf format and must live in a \verb'figures/' directory which itself lives next to \verb'main.tex'.  
+
+\begin{verbatim}
+    main-project-directory/
+        main.tex (required)
+        texedbook_envs.tex (required)
+        doc1.tex
+        doc2.tex
+        references.bib
+        figures/ (required)
+            figure-1.pdf
+\end{verbatim}
+
 
 \section{Native latex features} \label{sec:latexfeatures}
+This section will provide a non-exhaustive documentation of the native latex features that are supported by \verb'texedbook'. It will also provide their specific usage that yields a clean html output.
+
 \subsection{Figures}
 All figures used in the document must be contained in a directory named \verb'./figures/' and that folder must be located in the same location as \verb'main.tex'. In addition, all figures must be in pdf format.
 
-Ensuring that the figures are displayed correctly in the resulting html is tricky. The simplest and most effective way is to design the width of all figures to span width of the text on the page. This display condition reliably converts from latex to html and translates from computer to mobile formats well, which is not the case for all display options. If you would like the figure to display smaller, simply add white space to the left and right of the pdf as is done in Figure \ref{fig:example}.
+Ensuring that figures are displayed correctly in the resulting html is tricky. The simplest and most effective way is to assign that \textbf{all figures span width of the text on the page}. This display condition reliably converts from latex to html and translates from computer to mobile formats well, which is not the case for all display options. Since the aspect ratio of figures is locked by design, this may cause your figure to display very large in the pdf and html. If you would like the figure to display smaller, simply add white space to the left and right of the pdf as is done in Figure \ref{fig:example}.
 
-An example of the latex code used to add a figure is
+An example of the latex code used to add a figure is below.
 \begin{verbatim}
     \begin{figure}[t]
         \centering
         \includegraphics[width=0.99\textwidth, keepaspectratio]{figures/fig.pdf}
-        \caption{Example figure. Since the convention for texedbook is for figures to span the text width, whitespace added to control size of the image.}
+        \caption{Example figure.}
         \label{fig:example}
     \end{figure}  
 \end{verbatim}
-The [t] places the figure at the top of a page in the pdf, and does nothing to the html output. The html output will place the figure where it appears in the code.
+The \verb'[t]' places the figure at the top of a page in the pdf, and does nothing to the html output. The html output will place the figure where it appears in the code. The \verb'\centering' center justifies the figure. The \verb'\includegraphics[]{}' adds in the figure, the \verb'width=0.99\textwidth' sets the width of the figure to 99\% of the text width, and the \verb'figures/fig.pdf' points to the figure which must be placed in a \verb'.\figures\' directory and must be pdf format. The \verb'\label' allows the figure to be cross-referenced. 
 
 \begin{figure}[t]
     \centering
@@ -62,14 +85,27 @@ In line equations can be included $n\lambda=2d \sin \theta$, as well as displaye
     n\lambda=2d \sin \theta.
     \label{eq:braggslaw}
 \end{equation}
-Cross-referencing equations is done using the \verb'\mjref' function provided in \verb'texedbook.tex'. For example, Eq. \mjref{eq:braggslaw} is Bragg's Law, commonly used to find diffraction conditions of light of wavelength $\lambda$ interacting with a crystal with lattice spacing $d$ at an incident angle of $\theta$. The \verb'\mjref' function simply substitutes \verb'\ref' when the latex is compiled. However, when \verb'tex4ebook' converts the project to html, \verb'config.cfg' file tells \verb'tex4ebook' to insert \verb'\eqref' in place of all \verb'\mjref's, which \verb'mathjax' knows to look for in the html and use for equation numbering and cross-referencing. 
+Cross-referencing equations is done using the \verb'\mjref{}' function provided in \verb'texedbook_envs.tex'. For example, Eq. \mjref{eq:braggslaw} is Bragg's Law, commonly used to find diffraction conditions of light of wavelength $\lambda$ interacting with a crystal with lattice spacing $d$ at an incident angle of $\theta$. The \verb'\mjref{}' function simply substitutes \verb'\ref{}' when the latex is compiled. However, when \verb'tex4ebook' converts the project to html, \verb'config.cfg' file tells \verb'tex4ebook' to insert \verb'\eqref' in place of all \verb'\mjref's, which \verb'mathjax' knows to look for in the html and use for equation numbering and cross-referencing. 
 
 \subsection{Tables}
 Tables are inherently difficult to write in latex. \href{https://www.tablesgenerator.com/}{Tables Generator} is a great tool for generating latex code for tables. The table is translated into html. Note that the table styling in the html output is different than the latex output. 
 
-\begin{table}[]
+An example of the latex syntax is below.
+\begin{verbatim}
+    \begin{table}[t]
+        \caption{Example table.}
+        \centering
+        \begin{tabular}{|c|c|...}
+        ...
+        \end{tabular}
+        \label{table:example}
+    \end{table}
+\end{verbatim}
+
+The \verb'[t]' places the table at the top of a page in the pdf, and does nothing to the html output. The html output will place the table where it appears in the code. The \verb'\centering' center justifies the table. The table syntax goes within \verb'\tabular' environment. The \verb'\label' allows the table to be cross-referenced. 
+
+\begin{table}[t]
     \caption{Example table.}
-    \label{table:example}
     \centering
     \begin{tabular}{|c|c|c|c|}
     \hline
@@ -78,22 +114,23 @@ Tables are inherently difficult to write in latex. \href{https://www.tablesgener
     B                            & 51                          & 61                           & 72                          \\ \hline
     C                            & 58                          & 69                           & 71                          \\ \hline
     \end{tabular}
-    \end{table}
+    \label{table:example}
+\end{table}
 
-\subsection{Code}
-Code can be displayed using the verbatim environment native to latex 
+\subsection{Code Syntax}
+Code syntax can be displayed using the verbatim environment native to latex 
 \begin{verbatim}
 \begin{verbatim}
     for i in list:
-        i='some code'
-\end{verb atim} 
+        print('some code')
+\end{verbatim } 
 \end{verbatim}
+This will render in the html as a displayed code block that scrolls if a text overflow happens. This way readers will never miss the syntax they need, no matter the size of thier screen.
 
-Code can be written in-line using the \verb'\verb' function. This function comes from the \verb'verbatim' package and is unique in that it doesn't use the curly brackets for its arguement. It takes the first non-letter character as the open arguement and looks for that same character again to close the arguement. I typically use \verb_\verb'code here'_.   
-
+Code can be written in-line using the \verb'\verb' function. This function comes from the \verb'verbatim' package and is unique in that it doesn't use the curly brackets for its argument. It takes the first non-letter character as the open argument and looks for that same character again to close the argument. I typically use \verb_\verb'code here'_. This is meant for short (one word) expressions; if the content is too long it will be cut off. For long syntax use the \verb'\begin{verbatim}' environment.    
 
 \subsection{Cross-referencing and hyperlinks}
-Cross-referencing can be used as normal in latex and all of the hyperlinking functionality will be preserved in the html. For example, Section \ref{sec:latexfeatures}, Table \ref{table:example}, and Figure \ref{fig:example}. The only important exception is Equations where the \verb'\mjref' command must be used such that mathjax can properly lable and cross-reference equations locally in the html page using javascript (see Section \ref{sec:equations}).
+Cross-referencing can be used as normal in latex and all the hyperlinking functionality will be preserved in the html. For example, Section \ref{sec:latexfeatures}, Table \ref{table:example}, and Figure \ref{fig:example}. The only important exception is Equations where the \verb'\mjref' command must be used such that mathjax can properly label and cross-reference equations locally in the html page using javascript (see Section \ref{sec:equations}).
 
 Hyperlinks to external webpages can be added in latex using the \verb'\href' command.
 \begin{verbatim}
@@ -101,7 +138,45 @@ Hyperlinks to external webpages can be added in latex using the \verb'\href' com
 \end{verbatim}
 
 \subsection{Citations}
-The native bibliography features are maintained. For example, one can cite an article \cite{Hanus2021} or multiple articles \cite{Hanus2019,Hanus2021,Gregory2021}. Note that the hyperlinking to the bibliography in the pdf, a result of using the \verb'hyperref' package, is maintained in the resulting html. The default bibliography style used in \verb'texedbook' is \verb'unsrturl'. Note that this style supports hyperlinking to the url, and/or doi if that field is present in the .bib entry, and the hyperlinking is maintained in the resulting html. It is recommended that the doi field is used instead of the url, since line breaking needed to typset urls is handeled poorly by latex. Latex's performance on typesetting doi hyperlinks seems to work more reliably.
+The native bibliography features are maintained. For example, one can cite an article \cite{Hanus2021} or multiple articles \cite{Hanus2019,Hanus2021,Gregory2021}. Note that the hyperlinking to the bibliography in the pdf, a result of using the \verb'hyperref' package, is maintained in the resulting html. The default bibliography style used in \verb'texedbook' is \verb'unsrturl'. Note that this style supports hyperlinking to the url, and/or doi if that field is present in the .bib entry, and the hyperlinking is maintained in the resulting html. It is recommended that the doi field is used instead of the url, since line breaking needed to typeset urls is handled poorly by latex. Latex's performance on typesetting doi hyperlinks seems to work more reliably.
+
+\section{Texedbook features}
+This section will demonstrate special \verb'texedbook' environments and functions. These enviroments allow the author to embed digital content from the latex code directly into the resulting webpage. In short, latex takes the arguements and constructs a \textit{digital content box} in the pdf. When \verb'texedbook' sees this environment it takes the arguements provided by the author, constructs, and inserts an \verb'<iframe>' into the html inplace of \textit{digital content box}. 
+
+\subsection{Iframes}
+An inline frame, or iframe, is an html element that loads a webpage within another html page. When you see a YouTube video on a website other than www.youtube.com, it is being placed their using an iframe. However, as you can infer from the definition, iframes are extremely versitile and can be used for far more than embedding YouTube videos. Essentially, anything online can be embedded using an iframe. Often times there will be a \textit{share} button next feature on a webpage, and one of the sharing options will be \textit{embed}, or have the \verb'<>' symbol. This option will provide a piece of html code for the iframe that can be copy and pasted. An example is given below. 
+
+\begin{verbatim}
+    <iframe width="560" height="315" 
+            src="https://www.youtube.com/embed/..." 
+            title="YouTube video player" ...></iframe>
+\end{verbatim}
+
+The \verb'\InsertIframe' command provided in \verb'texedbook_envs.tex' allows the author to embed any iframe into the output html, directly from the latex project. The pdf will display a \textit{digital content box} containing a hyperlink to the source html contained in the iframe code. The output html will contain the iframe properly embedded. There are four arguements for \verb'\InsertIframe' and they are detailed here.
+\begin{verbatim}
+    \InsertIframe{<iframe ...></iframe>}
+                 {hyperlink display text}
+                 {caption}
+                 {type of digital content}
+\end{verbatim}  
+
+\InsertIframe{<iframe width="560" height="315" src="https://www.youtube.com/embed/zqtx0gA5K2s?si=nLdAne1jF961EMxx" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>}{Intro to Copyright}{MIT OpenCourseWare}{Video}
+
+\include{iframe}
+
+\subsection{Video}
+Embedding videos is done using commands defined in \verb'texedbook_envs.tex'. Different commands are used depending on where the video is hosted, since the urls and metadata can be handled differently by each hosting site. For more details see the \verb'README.md' which acts as a \textit{developer's guide}, whereas this document acts as an \textit{autor's guide}.
+
+\subsubsection{YouTube}
+To embed a YouTube video use the following command, where the url required is that from the \verb'src' option in the embed code. To obtain this, go to the video's YouTube webpage click Share, then Embed, the copy the url in the \verb'<iframe>' code provided.
+\begin{verbatim}
+    <iframe ... src=https://url.com/embed/... >
+\end{verbatim}
+This appears after \verb'src='. Paste it into the first argurment of the following command.
+\begin{verbatim}
+    \InsertYouTube{https://url.com/embed/...}{href name}{caption}
+\end{verbatim}
+\InsertYouTube{https://www.youtube.com/embed/zqtx0gA5K2s?si=VvkQh8POH3gqKmc0}{MIT OpenCourseWare: Introduction to Copyright Law}{Lecture 1 of MIT 6.912, Introduction to Copyright Law}
 
 \bibliographystyle{unsrturl}
 \bibliography{sample}

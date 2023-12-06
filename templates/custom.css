@@ -14,9 +14,13 @@ a {
   font-family: Georgia, Cambria, "Times New Roman", Times, serif;
 }
 
-.cmtt-10 {
+div[class*='cmtt'], span[class*='cmtt'] {
   font-family:Menlo,Monaco,Consolas,"Liberation Mono","Courier New",monospace;
   font-size: 0.875em;
+}
+
+.cmti-10 {
+  font-style:italic
 }
 
 .titleHead {
@@ -26,7 +30,7 @@ a {
 
 .prose {
   max-width: 100ch;
-  line-height: 1.15;
+  line-height: 1.5;
 }
 
 .abstract{

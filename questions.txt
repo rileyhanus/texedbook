@@ -1,4 +1,3 @@
-equation-label vetical-algin middle
-change image size based on font size
-make sidebar static when scrolling
-extent sidebar background
+equation-labels in multi page website
+fix text hidden under sidebar when reducing screen width
+wrap all <img> tags in <a> tag that points to the img

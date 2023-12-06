@@ -1,0 +1,27 @@
+\documentclass{article}
+\usepackage{listofitems}
+\usepackage{substr}
+\usepackage{hyperref}
+\usepackage{listofsymbols} 
+\newcommand{\parseiframe}[1]{\setsepchar{"}\readlist\iframelist{#1}
+}
+
+\makeatletter
+\def\instring#1#2{TT\fi\begingroup
+  \edef\x{\endgroup\noexpand\in@{#1}{#2}}\x\ifin@}
+\makeatother
+
+\newcommand{\iframeurl}[2]{
+    \parseiframe{#1}
+    \foreachitem \i \in \iframelist{
+        \IfSubStringInString{www.}{\i}{ \let\result=\i}{}
+    }
+    \href{\result}{#2}
+}
+
+\begin{document}
+
+\clearpage{}hello, testing testing 123\clearpage{}
+\iframeurl{<iframe width="560" height="315" src="https://www.youtube.com/embed/zqtx0gA5K2s?si=nLdAne1jF961EMxx" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>}{YouTube}
+
+\end{document}
