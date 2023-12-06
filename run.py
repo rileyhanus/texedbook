@@ -32,7 +32,7 @@ os.system('rsync -rv --exclude=.git ' + latex_dir + ' .build/latex' )
 # Clean up .tex files with vim regular expressions
 tex_files = glob.glob(os.path.join('.build', 'latex', '*.tex'))
 for tex_file in tex_files:
-    os.system('vim -s vim-cmds ' + tex_file)
+    os.system('vim -s aux/vim-cmds ' + tex_file)
 
 # Build the latex project, run tex4ebook, and run make-texedbook.py
 print(figlet_format("tex4ebook"))
@@ -40,7 +40,7 @@ os.system(
     '''
     source venv/bin/activate
     cd .build/latex
-    tex4ebook -c ../../config.cfg main.tex
+    tex4ebook -c ../../aux/config.cfg main.tex
     cd ../..
     ''')
 print(figlet_format("make-texedbook.py"))
@@ -49,3 +49,5 @@ os.system(
     python3 make-texedbook.py
     '''
 )
+
+print(figlet_format("build complete"))

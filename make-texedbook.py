@@ -30,7 +30,7 @@ def toc_loop(toc, level=0, toc_list=[]):
 
 def flatten_tex():
     # must be run from the directory make-texedbook.py is located in
-    print('flattening main.tex')
+    print('Flattening main.tex')
     os.system(
         '''
         cd .build/latex
@@ -53,11 +53,12 @@ def insert_iframes(soup, list_of_iframes):
         div.clear()
         div.append(BeautifulSoup(list_of_iframes[i], "html.parser"))
         i=i+1
+        print("<iframe> #" + str(i) + " inserted")
 
 def calchub_insert_iframe(soup, full_page=False, height="800"):
     divs = soup.find_all(class_="calchub")
     for div in divs:
-        print("Inserting calchub iframe...")
+        print("Inserting calchub <iframe>...")
         href = div.find_all("a")[0]['href']
         parsed_href = urlparse(href)
         text = div.find_all("a")[0].parent.text
@@ -75,7 +76,7 @@ def calchub_insert_iframe(soup, full_page=False, height="800"):
 def youtube_insert_iframe(soup, width="560", height="315"):
     divs = soup.find_all(class_="youtube")
     for div in divs:
-        print("Inserting youtube iframe...")
+        print("Inserting youtube <iframe>...")
         href = div.find_all("a")[0]['href']
         text = div.find_all("a")[0].parent.text
         iframe_html = '<p>' + text + '</p>  <iframe width="'+ width + '" height="' + height + '" src="' + href + '" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>'
@@ -85,15 +86,9 @@ def youtube_insert_iframe(soup, width="560", height="315"):
 def trinket_insert_iframe(soup, width="100%", height="500"):
     divs = soup.find_all(class_="trinket")
     for div in divs:
-        print("Inserting trinket iframe...")
+        print("Inserting trinket <iframe>...")
         href = div.find_all("a")[0]['href']
         print(href)
-        # parsed_href = urlparse(href)
-        # print(parsed_href)
-        # path = parsed_href.path
-        # trinket_code = path.split('/')[-1]
-        # print(trinket_code)
-        # parsed_href = parsed_href._replace(path='embed/' + video_code, query='')
         text = div.find_all("a")[0].parent.text
         iframe_html = '<p>' + text + '</p>  <iframe src="' + href + '" width="' + width + '" height="' + height + '" frameborder="0" marginwidth="0" marginheight="0" allowfullscreen></iframe>'
         div.clear()
@@ -102,7 +97,7 @@ def trinket_insert_iframe(soup, width="100%", height="500"):
 def panopto_insert_iframe(soup, width="560", height="315"):
     divs = soup.find_all(class_="panopto")
     for div in divs:
-        print("Inserting panopto iframe...")
+        print("Inserting panopto <iframe>...")
         href = div.find_all("a")[0]['href']
         href_embed = href.replace("Viewer", "Embed")
         text = div.find_all("a")[0].parent.text
@@ -112,11 +107,10 @@ def panopto_insert_iframe(soup, width="560", height="315"):
 
 def clean_html(soup):
     soup = str(soup)
-    # soup = soup.encode('unicode_escape')
     soup = soup.replace(r"\relax", r"")
     return BeautifulSoup(soup, features="lxml")
 
-def template_ebook(book_epub, sidebar_element_html, sidebar_html, template_html, css, one_page=True):
+def template_ebook(book_epub, sidebar_element_html, sidebar_html, template_html, css):
     print("Initializing .build/output/")
     target = os.path.join('.build', 'output')
     if os.path.exists(target):
@@ -128,7 +122,7 @@ def template_ebook(book_epub, sidebar_element_html, sidebar_html, template_html,
     print("\n  Book Title: " + book.title + "\n")
     print(book.get_metadata("DC", "creator"))
 
-    print("Opening html templates and building Template objects...")
+    print("\nOpening html templates and building Template objects...")
     with open(sidebar_element_html, "r", encoding='utf-8') as f:
         sidebar_element_template = f.read()
     with open(sidebar_html, "r", encoding='utf-8') as f:
@@ -140,13 +134,12 @@ def template_ebook(book_epub, sidebar_element_html, sidebar_html, template_html,
     template_body = Template(body_template)
 
     # Setup sidebar and nav menu display options, content, and focus settings
-    focus_display_options = 'bg-gray-200 text-gray-900 hover:text-gray-600'
     standard_display_options = 'bg-gray-75 text-gray-600 hover:bg-gray-200 hover:text-gray-900'
     sidebar_font_sizes = [' text-md font-bold ', ' text-sm font-bold ', ' text-xs ', ' text-xs ', ' text-xs ', ' text-xs ']
 
-    print("Constructing TOC list based on .ncx content...")
+    print("\nConstructing TOC list based on .ncx content...")
     toc_list = toc_loop(book.toc)
-    print("Table of contents: ")
+    print("\nTable of contents: ")
     print(toc_list)
     item_name_list = [row[1].split('#')[0] for row in toc_list]
 
@@ -163,109 +156,53 @@ def template_ebook(book_epub, sidebar_element_html, sidebar_html, template_html,
     for item in document_item_list:
         document_name_list.append(item.get_name())
 
-    if one_page:
-        print('Make template_main.html...')
-        title_page_html = book.get_item_with_href("main.html").get_content()
-        soup = BeautifulSoup(title_page_html, 'html.parser')
-        body = soup.body
+    print('\nMaking template_main.html...')
+    title_page_html = book.get_item_with_href("main.html").get_content()
+    soup = BeautifulSoup(title_page_html, 'html.parser')
+    body = soup.body
 
-        # Build sidebar and template it into template
-        sidebar_content = ''
-        for element in toc_list:
-            display_options = standard_display_options
-            sidebar_content = sidebar_content + template_sidebar_element.render(sidebar_element_href="templated_main.html#" + element[1].split('#')[1],  
-                                                                                sidebar_element_title=element[0], 
-                                                                                display_options=display_options + sidebar_font_sizes[element[2]] + " px-" + str(4+4*element[2])) + '\n'
-            sidebar = template_sidebar.render(sidebar_content=sidebar_content, standard_display_options=standard_display_options + sidebar_font_sizes[0] + " px-" + str(4+4*0)) + '\n'
-        templated_html = template_body.render(title=book.title, sidebar=sidebar, body=body, standard_display_options=standard_display_options + sidebar_font_sizes[0] + " px-" + str(4+4*0)) + '\n'
-        templated_soup = BeautifulSoup(templated_html, 'html.parser')
-        
-        print("\nLooping through Epub Document Items and appending body to the body of templated_main.html...")
-        for item in book.get_items():
-            if item.get_name() in item_name_list:
-                new_content = item.get_content()
-                new_soup = BeautifulSoup(new_content, 'html.parser')
-                # Fixing hrefs such that they point to templated_main.html instead of xxx.html
-                a_tags = new_soup.body.find_all("a", href=True) 
-                for a_tag in a_tags:
-                    href = a_tag['href']
-                    for document_name in document_name_list:
-                        if document_name in href:
-                            href = href.replace(document_name, "templated_main.html")
-                            a_tag['href'] = href
-                # Insert iframes
-                calchub_insert_iframe(new_soup)
-                youtube_insert_iframe(new_soup)
-                trinket_insert_iframe(new_soup)
-                panopto_insert_iframe(new_soup)
-                new_soup = clean_html(new_soup)
-                new_body_html = new_soup.find('body').findChildren(recursive=False)
-                for i in range(len(new_body_html)):
-                    templated_soup.body.append(new_body_html[i])
-        print("inserting iframes...")
-        list_of_iframes = make_list_of_iframes()
-        insert_iframes(templated_soup, list_of_iframes)
-        with open(".build/output/templated_" + "main.html", "w") as file:
-            print("writing " + ".build/output/templated_" + "main.html")
-            file.write(str(templated_soup))
-    else:  
-        print('Make title page template_main.html...')
-        title_page_html = book.get_item_with_href("main.html").get_content()
-        soup = BeautifulSoup(title_page_html, 'html.parser')
-        body = soup.body
-        sidebar_content = ''
-        for element in toc_list:
-            display_options = standard_display_options
-            sidebar_content = sidebar_content + template_sidebar_element.render(sidebar_element_href="templated_" + element[1],  sidebar_element_title=element[0], display_options=display_options + sidebar_font_sizes[element[2]] + " px-" + str(4+4*element[2])) + '\n'
-            sidebar = template_sidebar.render(sidebar_content=sidebar_content)
-        templated_html = template_body.render(title=book.title, sidebar=sidebar, body=body)
-        with open(".build/output/templated_" + "main.html", "w") as file:
-            print("writing " + ".build/output/templated_" + "main.html")
-            file.write(templated_html)
-        
-        print("\nLooping through Epub Document Items...")
-        for item in book.get_items():
-            if item.get_name() in item_name_list:
-                document_name = item.get_name()
-                print("\nDocument " + document_name + " ...")
-                sidebar_content = ''
-                print("Building Sidebar...")
-                for element in toc_list:
-                    print(element)
-                    if document_name == element[1].split('#')[0]:
-                        display_options = focus_display_options
-                    else:
-                        display_options = standard_display_options
-                    sidebar_content = sidebar_content + template_sidebar_element.render(sidebar_element_href="templated_" + element[1],  sidebar_element_title=element[0], display_options=display_options + sidebar_font_sizes[element[2]] + " px-" + str(4+4*element[2])) + '\n'
-                sidebar = template_sidebar.render(sidebar_content=sidebar_content)
+    # Build sidebar and template it into template
+    sidebar_content = ''
+    for element in toc_list:
+        display_options = standard_display_options
+        sidebar_content = sidebar_content + template_sidebar_element.render(sidebar_element_href="templated_main.html#" + element[1].split('#')[1],  
+                                                                            sidebar_element_title=element[0], 
+                                                                            display_options=display_options + sidebar_font_sizes[element[2]] + " px-" + str(4+4*element[2])) + '\n'
+        sidebar = template_sidebar.render(sidebar_content=sidebar_content, standard_display_options=standard_display_options + sidebar_font_sizes[0] + " px-" + str(4+4*0)) + '\n'
+    templated_html = template_body.render(title=book.title, sidebar=sidebar, body=body, standard_display_options=standard_display_options + sidebar_font_sizes[0] + " px-" + str(4+4*0)) + '\n'
+    templated_soup = BeautifulSoup(templated_html, 'html.parser')
+    
+    print("\nLooping through Epub Document Items and appending body to the body of templated_main.html...")
+    for item in book.get_items():
+        if item.get_name() in item_name_list:
+            print(item.get_name())
+            new_content = item.get_content()
+            new_soup = BeautifulSoup(new_content, 'html.parser')
+            # Fixing hrefs such that they point to templated_main.html instead of xxx.html
+            a_tags = new_soup.body.find_all("a", href=True) 
+            for a_tag in a_tags:
+                href = a_tag['href']
+                for document_name in document_name_list:
+                    if document_name in href:
+                        href = href.replace(document_name, "templated_main.html")
+                        a_tag['href'] = href
+            # Insert iframes
+            calchub_insert_iframe(new_soup)
+            youtube_insert_iframe(new_soup)
+            trinket_insert_iframe(new_soup)
+            panopto_insert_iframe(new_soup)
+            new_soup = clean_html(new_soup)
+            new_body_html = new_soup.find('body').findChildren(recursive=False)
+            for i in range(len(new_body_html)):
+                templated_soup.body.append(new_body_html[i])
+    print("\nInserting generic iframes...")
+    list_of_iframes = make_list_of_iframes()
+    insert_iframes(templated_soup, list_of_iframes)
+    with open(".build/output/templated_" + "main.html", "w") as file:
+        print("\nWriting " + ".build/output/templated_" + "main.html")
+        file.write(str(templated_soup))
 
-                print("Extracting body...")
-                content = item.get_content()
-                soup = BeautifulSoup(content, 'html.parser')
-
-                # Insert iframes
-                calchub_insert_iframe(soup)
-                youtube_insert_iframe(soup)
-                trinket_insert_iframe(soup)
-                panopto_insert_iframe(soup)
-                soup = clean_html(soup)
-                body = soup.body
-                
-                # Fixing hrefs such that they point to templated_xxx.html instead of xxx.html
-                a_tags = body.find_all("a", href=True) 
-                for a_tag in a_tags:
-                    href = a_tag['href']
-                    for document_name in document_name_list:
-                        if document_name in href:
-                            href = href.replace(document_name, "templated_" + document_name)
-                            a_tag['href'] = href
-                            
-                print("Templating page and writing templated_xxx.html...")
-                templated_html = template_body.render(title=book.title, sidebar=sidebar, body=body)
-                with open(".build/output/templated_" + item.get_name(), "w") as file:
-                    print("writing " + ".build/output/templated_" + item.get_name())
-                    file.write(templated_html)
-
+    print("\nCopying figures, css, and pdf to ./build/output ")
     # Copy figure files to the ./output/ directory
     if os.path.exists(".build/output/figures"):
         shutil.rmtree(".build/output/figures")
@@ -280,11 +217,9 @@ def template_ebook(book_epub, sidebar_element_html, sidebar_html, template_html,
     shutil.copy('.build/latex/main.pdf', '.build/output')
 
 
-
-template_ebook(".build/latex/main-epub/main.epub", 
-                "./templates/sidebar_element.html",
-                "./templates/sidebar.html", 
-                "./templates/template.html", 
-                "./templates/custom.css")
-
-#print(make_list_of_iframes())
+if __name__ == "__main__":
+    template_ebook(".build/latex/main-epub/main.epub", 
+                    "./templates/sidebar_element.html",
+                    "./templates/sidebar.html", 
+                    "./templates/template.html", 
+                    "./templates/custom.css")
