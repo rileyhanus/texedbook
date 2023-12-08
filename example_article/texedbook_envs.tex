@@ -10,11 +10,13 @@
 \usepackage{listofitems}
 \usepackage{substr}
 \usepackage{cprotect}
-% \newcounter{iframe}[chapter]\setcounter{iframe}{0}
-% \renewcommand{\theiframe}{\arabic{chapter}.\arabic{iframe}}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% iframe environment for embedding <iframe ...></iframe>     %
+% result: html=embedded iframe, pdf=multimedia box w/ href   %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \newenvironment{iframe}[1][]{%
-% \refstepcounter{iframe}%
 \ifstrempty{#1}%
 {\mdfsetup{%
 frametitle={%
@@ -53,6 +55,21 @@ frametitleaboveskip=\dimexpr-\ht\strutbox\relax
    \begin{iframe}[#4]
       \iframeurl{#1}{#2} | #3
    \end{iframe}
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% html environment for inserting custom html <div ...></div>  %
+% result: html=html code, pdf=latex code                      %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\newenvironment{customhtml}{}{}
+
+\newcommand{\InsertHTML}[2]{
+    % #1: html code for compiled html
+    % #2: latex code for compiled pdf 
+   \begin{customhtml}
+      #2
+   \end{customhtml}
 }
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%

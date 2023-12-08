@@ -6,7 +6,7 @@
 \documentclass{article}
 \input{texedbook_envs}
 
-\title{Author's guide to \texttt{texedbook}}
+\title{Author's guide to texedbook}
 \author{Riley Hanus, PhD}
 \date{}
 
@@ -17,7 +17,7 @@
 \begin{abstract}
 The \verb'texedbook' code base is a tool for publishing articles, educational content, and textbooks online without the need to learn html, css, and javascript. The author writes and compiles the content in latex using \verb'latexmk' and (after following the set-up instructions in the \verb'README.md') runs 
 \begin{verbatim}
-python run.py ./path/to/latex/project/directory
+python make_texedbook.py ./path/to/latex/project/directory
 \end{verbatim}
 which generates a collection of html and css files in \verb'.build/output/' that can be directly published online. The product is a computer and mobile friendly webpage, with all document features preserved and all content embedded.  In addition to supporting most of the native latex features, \verb'texedbook' provides tools for embedding digital and interactive content such as videos, quizzes, code editors and compilers, etc. 
 
@@ -66,7 +66,7 @@ An example of the latex code used to add a figure is below.
         \label{fig:example}
     \end{figure}  
 \end{verbatim}
-The \verb'[t]' places the figure at the top of a page in the pdf, and does nothing to the html output. The html output will place the figure where it appears in the code. The \verb'\centering' center justifies the figure. The \verb'\includegraphics[]{}' adds in the figure, the \verb'width=0.99\textwidth' sets the width of the figure to 99\% of the text width, and the \verb'figures/fig.pdf' points to the figure which must be placed in a \verb'.\figures\' directory and must be pdf format. The \verb'\label' allows the figure to be cross-referenced. 
+The \verb'[t]' places the figure at the top of a page in the pdf, and does nothing to the html output. The html output will place the figure where it appears in the code. The \verb'\centering' center justifies the figure. The \verb'\includegraphics[]{}' adds in the figure, the \verb'width=0.99\textwidth' sets the width of the figure to 99\% of the text width, and the \verb'figures/fig.pdf' points to the figure which must be placed in a \verb'./figures/' directory and must be pdf format. The \verb'\label' allows the figure to be cross-referenced. 
 
 \begin{figure}[t]
     \centering
@@ -85,12 +85,12 @@ In line equations can be included $n\lambda=2d \sin \theta$, as well as displaye
     n\lambda=2d \sin \theta.
     \label{eq:braggslaw}
 \end{equation}
-Cross-referencing equations is done using the \verb'\mjref{}' function provided in \verb'texedbook_envs.tex'. For example, Eq. \mjref{eq:braggslaw} is Bragg's Law, commonly used to find diffraction conditions of light of wavelength $\lambda$ interacting with a crystal with lattice spacing $d$ at an incident angle of $\theta$. The \verb'\mjref{}' function simply substitutes \verb'\ref{}' when the latex is compiled. However, when \verb'tex4ebook' converts the project to html, \verb'config.cfg' file tells \verb'tex4ebook' to insert \verb'\eqref' in place of all \verb'\mjref's, which \verb'mathjax' knows to look for in the html and use for equation numbering and cross-referencing. 
+Cross-referencing equations is done using the \verb'\mjref{}' function provided in \verb'texedbook_envs.tex'. For example, Eq. \mjref{eq:braggslaw} is Bragg's Law which is commonly used to find diffraction conditions of light of wavelength $\lambda$ interacting with a crystal with lattice spacing $d$ at an incident angle of $\theta$. The \verb'\mjref{}' function simply substitutes \verb'\ref{}' when the latex is compiled. However, when \verb'tex4ebook' converts the project to html, the \verb'aux/config.cfg' file tells \verb'tex4ebook' to insert \verb'\eqref' in place of all \verb'\mjref's, which \verb'mathjax' knows to look for in the html and use for equation numbering and cross-referencing. 
 
 \subsection{Tables}
-Tables are inherently difficult to write in latex. \href{https://www.tablesgenerator.com/}{Tables Generator} is a great tool for generating latex code for tables. The table is translated into html. Note that the table styling in the html output is different than the latex output. 
+Tables are inherently difficult to write in latex. \href{https://www.tablesgenerator.com/}{Tables Generator} is a great tool for generating latex code for tables. Note that the table styling in the html output is different then the latex output. 
 
-An example of the latex syntax is below.
+An example of the latex syntax for including a table is given below.
 \begin{verbatim}
     \begin{table}[t]
         \caption{Example table.}
@@ -141,10 +141,12 @@ Hyperlinks to external webpages can be added in latex using the \verb'\href' com
 The native bibliography features are maintained. For example, one can cite an article \cite{Hanus2021} or multiple articles \cite{Hanus2019,Hanus2021,Gregory2021}. Note that the hyperlinking to the bibliography in the pdf, a result of using the \verb'hyperref' package, is maintained in the resulting html. The default bibliography style used in \verb'texedbook' is \verb'unsrturl'. Note that this style supports hyperlinking to the url, and/or doi if that field is present in the .bib entry, and the hyperlinking is maintained in the resulting html. It is recommended that the doi field is used instead of the url, since line breaking needed to typeset urls is handled poorly by latex. Latex's performance on typesetting doi hyperlinks seems to work more reliably.
 
 \section{Texedbook features}
-This section will demonstrate special \verb'texedbook' environments and functions. These enviroments allow the author to embed digital content from the latex code directly into the resulting webpage. In short, latex takes the arguements and constructs a \textit{digital content box} in the pdf. When \verb'texedbook' sees this environment it takes the arguements provided by the author, constructs, and inserts an \verb'<iframe>' into the html inplace of \textit{digital content box}. 
+This section will demonstrate special \verb'texedbook' environments and commands that allow the author to embed digital content directly from the latex code into the resulting webpage. There are several commands provided in \verb'texedbook_envs.tex' to achieve this. \verb'\InsertIframe' is specifically for iframes (explained in Section \ref{sec:iframes}) and \verb'\InsertHTML' is more generic and allows the author to include any html element they wish. The arguements the author inputs tells \verb'texedbook' what to render in the pdf as well as what to template into the output html. 
 
-\subsection{Iframes}
-An inline frame, or iframe, is an html element that loads a webpage within another html page. When you see a YouTube video on a website other than www.youtube.com, it is being placed their using an iframe. However, as you can infer from the definition, iframes are extremely versitile and can be used for far more than embedding YouTube videos. Essentially, anything online can be embedded using an iframe. Often times there will be a \textit{share} button next feature on a webpage, and one of the sharing options will be \textit{embed}, or have the \verb'<>' symbol. This option will provide a piece of html code for the iframe that can be copy and pasted. An example is given below. 
+In practice, \verb'texedbook' searches the latex project for the specific pattern \verb'\InsertXXX{...}' and grabs the arguements needed to template the html into the final webpage. Therefore, you will see an extra space before the open curly bracket when displaying the latex code syntax for these functions in this document. This avoids unintentionally triggering the templating functions in \verb'make_texedbook.py', and insures that this Author's Guide works properly. The author should also \textbf{avoid unintentionally triggering the templating functions by writing the exact synax for these commands in places it doesn't belong (e.g. in comments, verbatim enviroments, etc.).}
+
+\subsection{Iframes} \label{sec:iframes}
+An inline frame, or iframe, is an html element that loads a webpage within another webpage. When you see a YouTube video on a website other than www.youtube.com, it is likely being placed their using an iframe. However, as you can infer from the definition, iframes are extremely versatile and can be used for far more than embedding YouTube videos. Essentially, anything online can be embedded using an iframe. Often times there will be a \textit{share} button next to a sharable feature on a webpage, and one of the sharing options can be \textit{embed}, or have the \verb'<>' symbol. This option will provide a piece of html code for the iframe that can be copy and pasted. An example of an html iframe is given below. 
 
 \begin{verbatim}
     <iframe width="560" height="315" 
@@ -152,31 +154,44 @@ An inline frame, or iframe, is an html element that loads a webpage within anoth
             title="YouTube video player" ...></iframe>
 \end{verbatim}
 
-The \verb'\InsertIframe' command provided in \verb'texedbook_envs.tex' allows the author to embed any iframe into the output html, directly from the latex project. The pdf will display a \textit{digital content box} containing a hyperlink to the source html contained in the iframe code. The output html will contain the iframe properly embedded. There are four arguements for \verb'\InsertIframe' and they are detailed here.
+The \verb'\InsertIframe' command provided in \verb'texedbook_envs.tex' allows the author to embed any iframe into the output html, directly from the latex project. The pdf will display a \textit{digital content box} containing a hyperlink to the source URL contained in the iframe code. The output html will contain the iframe properly embedded. There are four arguments for \verb'\InsertIframe', and they are detailed here.
 \begin{verbatim}
-    \InsertIframe{<iframe ...></iframe>}
-                 {hyperlink display text}
-                 {caption}
-                 {type of digital content}
+    \InsertIframe {<iframe ...></iframe>}
+                  {hyperlink display text}
+                  {caption}
+                  {type of digital content}
 \end{verbatim}  
 
-\InsertIframe{<iframe width="560" height="315" src="https://www.youtube.com/embed/zqtx0gA5K2s?si=nLdAne1jF961EMxx" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>}{Intro to Copyright}{MIT OpenCourseWare}{Video}
+Below is this command in practice, where a YouTube video from MIT's OpenCourseWare is embedded. As you can see in the compiled pdf, a fancy \textit{Digital Content} box and hyperlink are rendered. In the html output, the iframe is properly embedded.
 
-\include{iframe}
+\InsertIframe{<iframe width="560" height="315" src="https://www.youtube.com/embed/zqtx0gA5K2s?si=nLdAne1jF961EMxx" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>}
+             {Intro to Copyright Law}
+             {MIT OpenCourseWare 6.912, Lecture 1}
+             {Video} 
 
-\subsection{Video}
-Embedding videos is done using commands defined in \verb'texedbook_envs.tex'. Different commands are used depending on where the video is hosted, since the urls and metadata can be handled differently by each hosting site. For more details see the \verb'README.md' which acts as a \textit{developer's guide}, whereas this document acts as an \textit{autor's guide}.
-
-\subsubsection{YouTube}
-To embed a YouTube video use the following command, where the url required is that from the \verb'src' option in the embed code. To obtain this, go to the video's YouTube webpage click Share, then Embed, the copy the url in the \verb'<iframe>' code provided.
+\subsection{Special embed commands}
+There also may be scenerios when the embed code is not provided. This is the case for videos hosted on the course management platform Panopto. In this case simply replacing the `Video' with `Embed' in the url and placing it in a generic <iframe> element embeds the video properly. Therefore, special commands are provided which generates the <iframe> for the author with the following syntax. See all the special commands provided in \verb'texedbook_envs.tex'. An example for a Panopto video is given here.
 \begin{verbatim}
-    <iframe ... src=https://url.com/embed/... >
-\end{verbatim}
-This appears after \verb'src='. Paste it into the first argurment of the following command.
+    \InsertPanoptoVideo {https://www.url-to-video.com/xxx}
+                        {hyperlink display text}
+                        {caption}
+\end{verbatim}  
+
+Below is this command in practice, where a lecture from Prof. G. Jeff Snyder's course on transport at Northwestern University is embedded. As you can see in the compiled pdf, a fancy \textit{Digital Content} box and hyperlink are rendered. In the html output, the iframe is properly embedded.
+
+\InsertPanoptoVideo{https://northwestern.hosted.panopto.com/Panopto/Pages/Viewer.aspx?id=405416aa-29b1-462a-b861-aa2b00497f15&start=0}{MSE 485 2-11}{Prof. G. Jeff Snyder's lecture on Complex Fermi Surfaces}
+
+\subsection{Generic HTML}
+The author may desire more flexibility. The \verb'\IncludeHTML' command is quite generic and versitile. Its first argument is simply the html element that will be templated directly into the output html code. Its second arguement is the latex code that will be compiled into the pdf.   
 \begin{verbatim}
-    \InsertYouTube{https://url.com/embed/...}{href name}{caption}
-\end{verbatim}
-\InsertYouTube{https://www.youtube.com/embed/zqtx0gA5K2s?si=VvkQh8POH3gqKmc0}{MIT OpenCourseWare: Introduction to Copyright Law}{Lecture 1 of MIT 6.912, Introduction to Copyright Law}
+    \InsertHTML {html code for output (e.g. <div ...></div>)}
+                {latex code for compiled pdf}
+\end{verbatim}  
+
+See this command implemented below where another YouTube video is embedded in the output html, and a simple hyperlink is compiled in the pdf. 
+\InsertHTML{<iframe width="560" height="315" src="https://www.youtube.com/embed/spUNpyF58BY?si=wW31fiDuXUkdEAQn" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>}
+           {\href{https://www.youtube.com/embed/spUNpyF58BY?si=wW31fiDuXUkdEAQn}{Three Blue One Brown video on the Fourier Transform.}}
+
 
 \bibliographystyle{unsrturl}
 \bibliography{sample}

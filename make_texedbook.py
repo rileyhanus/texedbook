@@ -15,6 +15,7 @@ import shutil
 import glob
 import sys
 import re as re
+from pyfiglet import figlet_format
 
 def toc_loop(toc, level=0, toc_list=[]):
     for item in toc:
@@ -44,6 +45,8 @@ def make_list_of_iframes():
     with open('.build/latex/main-flat.tex', 'r') as file:
         main_flat = file.read()
     list_of_iframes = re.findall(r'\\InsertIframe{(.*?)}', main_flat)
+    print("\nList of iframes:")
+    print(list_of_iframes)
     return list_of_iframes
 
 def insert_iframes(soup, list_of_iframes):
@@ -54,6 +57,24 @@ def insert_iframes(soup, list_of_iframes):
         div.append(BeautifulSoup(list_of_iframes[i], "html.parser"))
         i=i+1
         print("<iframe> #" + str(i) + " inserted")
+
+def make_list_of_htmls():
+    flatten_tex()
+    with open('.build/latex/main-flat.tex', 'r') as file:
+        main_flat = file.read()
+    list_of_htmls = re.findall(r'\\InsertHTML{(.*?)}', main_flat)
+    print("\nList of HTML code blocks:")
+    print(list_of_htmls)
+    return list_of_htmls
+
+def insert_htmls(soup, list_of_htmls):
+    divs = soup.find_all(class_="customhtml")
+    i=0
+    for div in divs:
+        div.clear()
+        div.append(BeautifulSoup(list_of_htmls[i], "html.parser"))
+        i=i+1
+        print("<div> #" + str(i) + " inserted")
 
 def calchub_insert_iframe(soup, full_page=False, height="800"):
     divs = soup.find_all(class_="calchub")
@@ -195,9 +216,14 @@ def template_ebook(book_epub, sidebar_element_html, sidebar_html, template_html,
             new_body_html = new_soup.find('body').findChildren(recursive=False)
             for i in range(len(new_body_html)):
                 templated_soup.body.append(new_body_html[i])
-    print("\nInserting generic iframes...")
+    print("\nInserting iframes...")
     list_of_iframes = make_list_of_iframes()
     insert_iframes(templated_soup, list_of_iframes)
+
+    print("\nInserting html...")
+    list_of_htmls = make_list_of_htmls()
+    insert_htmls(templated_soup, list_of_htmls)
+
     with open(".build/output/templated_" + "main.html", "w") as file:
         print("\nWriting " + ".build/output/templated_" + "main.html")
         file.write(str(templated_soup))
@@ -218,8 +244,43 @@ def template_ebook(book_epub, sidebar_element_html, sidebar_html, template_html,
 
 
 if __name__ == "__main__":
+    print(figlet_format("run.py"))
+
+    # Check if path to latex dir was given
+    if len(sys.argv) < 2:
+        print("texedbook requires path to latex project directory")
+        exit()
+    latex_dir = os.path.join(sys.argv[1], '*')
+
+    # Initialize .build/
+    print("Initializing .build/")
+    if os.path.exists('.build'):
+        os.system('rm -r .build')
+    os.system('mkdir .build')
+    os.system('mkdir .build/latex')
+    print("Copying " + latex_dir + " into .build/latex/")
+    os.system('rsync -rv --exclude=.git ' + latex_dir + ' .build/latex' )
+
+    # Clean up .tex files with vim regular expressions
+    tex_files = glob.glob(os.path.join('.build', 'latex', '*.tex'))
+    for tex_file in tex_files:
+        os.system('vim -s aux/vim-cmds ' + tex_file)
+
+    # Build the latex project, run tex4ebook, and run make-texedbook.py
+    print(figlet_format("tex4ebook"))
+    os.system(
+        '''
+        source venv/bin/activate
+        cd .build/latex
+        tex4ebook -c ../../aux/config.cfg main.tex
+        cd ../..
+        ''')
+    print(figlet_format("make-texedbook.py"))
+
     template_ebook(".build/latex/main-epub/main.epub", 
                     "./templates/sidebar_element.html",
                     "./templates/sidebar.html", 
                     "./templates/template.html", 
                     "./templates/custom.css")
+    
+    print(figlet_format("texedbook \n build complete"))
