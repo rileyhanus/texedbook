@@ -1,21 +1,27 @@
-# TexEdBook
+# texedbook
+
+`tex`: Latex based. `ed`: Education focused. `book`: Classic textbook functionality maintained.
 
 ## Overview:
-This is a package that converts any latex project directly into a ready to publish website. This allows authors to publish directly readers. The resulting website supports interactive digital content. Most functions and environments native to latex are supported. Any feature that can be embedded in an html page can be implimented directly in the latex code using custom environments provided in this package. Therefore, this package is backwards compatible with legacy, latex based, educational content, and is also capable of supporting html-based interactive content moving forward. 
+This is code base enables authors to publish latex based articles, educational content, and textbooks online without the need to learn html, css, and javascript. Most importantly, any website element (e.g.iframe or custom html element) can be embedded in an the output html page directly from the latex code using custom environments provided in this package. The author compiles the publication in latex (using `latexmk`) following the conventions outlined in [Author's Guide to Textbook](./authors_guide/main.pdf), and then runs
 
-## Multi-media content:
-When TexEdBook compiles the latex project into an interactive html-based learning environment, the multi-media content is imbedded into the web page and is fully functional. Naturally, print and pdf formats do not support many multi-media formats that are desired in a digital learning environment (videos, math workspaces, problem sets and quizzes). When this type of content is included in the latex document, the rendered pdf simply provides a hyperlink to the url used to access the digital content is given. This is analogous to a print textbook containing a CD with digital content. 
+`python make_texedbook.py ./path/to/latex/project/directory`
 
-## Packages used:
-The input of this package is a latex document that compiles successfully. If the document compiles with errors, these errors may propagate into the html pages generated. The package tex4ebook, which uses tex4ht internally, is used to generate an .epub file from the latex document. This .epub is essentially a zipped up folder containing an .ncx navigation file and a series of .html files associated with each section. tex4ebook uses the `config.cfg` file to designate configuration settings which control how certain latex features are converted to html. The default usage of the `config.cfg` file uses mathjax to render equations. The `config.cfg` file is also where we tell tex4ht how to handle custom environments. 
+which does the following.
 
-Within `make-texedbook.py`, ebooklib is used to parse the .epub file and build objects containing all of the content. Beautiful Soup 4 is used for some html parsing. Jinja2 is used for html templating. 
+1. Initializes the `.build/` directory
+1. Compiles the latex project using the `latexmk` command (native to the full latex distibution)
+1. Generates the required html and metadata using the `tex4ebook` command (also native to the full latex distribution) along with the `config.cfg` file provided here.
+1. Templates the html into the `texedbook` html templates using the open source python packages `BeautifulSoup` and `jinga2`, among others.
+1. Builds the webpage navigation (computer and mobile)
+1. Sews up hyperlinks
+1. Parses the latex project and templates in any custom html, or embed code input by the author using latex commands and evironments provided by `texedbook`
 
 ## Set up texedbook:
-Follow these steps to set up your texedbook project.
+Follow these steps to set up `texedbook` for use on your computer.
 
 ### Prerequisits:
-1. Ensure you have a full Tex Live LaTex distribution installed. See https://www.latex-project.org/get/ . Basic or smaller latex distributions will not work.
+1. Ensure you have a full Tex Live LaTex distribution installed. See [latex-project.org](https://www.latex-project.org/get/) . Basic or smaller latex distributions will not work.
 
    - MacOS: Install MacTex using the .exe installer from the link above. (tested)
 
@@ -27,9 +33,11 @@ Follow these steps to set up your texedbook project.
 
    - Windows: Install using the TexLive installer (untested)
 
-1. Ensure you have python 3.8 (older versions may work too), venv, wheel, and pip installed. Wheel can be installed with 
+1. Ensure you have Python 3.8 (older versions may work too), venv, wheel, and pip installed. Wheel can be installed with 
 
-    `pip install wheel`
+    - `pip` comes with the standard Python 3 distribution so you should have it. If it isn't you could try reinstalling Python 3.8 or newer from [python.org](https://www.python.org/)
+    - `venv` also comes with the standard Python 3 distribution.
+    - `wheel` can be installed with `pip install wheel`
 
 ### Download and installation:
 
