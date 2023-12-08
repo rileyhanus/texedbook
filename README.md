@@ -5,7 +5,7 @@
 ## Overview:
 This is code base enables authors to publish latex based articles, educational content, and textbooks online without the need to learn html, css, and javascript. Most importantly, any website element (e.g.iframe or custom html element) can be embedded in an the output html page directly from the latex code using custom environments provided in this package. The author compiles the publication in latex (using `latexmk`) following the conventions outlined in [Author's Guide to Textbook](./authors_guide/main.pdf), and then runs
 
-`python make_texedbook.py ./path/to/latex/project/directory`
+`python make_texedbook.py ./path/to/latex/project/directory/`
 
 which does the following.
 
@@ -41,7 +41,7 @@ Follow these steps to set up `texedbook` for use on your computer.
 
 ### Download and installation:
 
-1. Clone the repository to your computer and navigate into it by running (you will need to have permissions)
+1. Clone the repository to your computer and navigate into it by running the following in the terminal (you will need to have permissions)
 
     `git clone https://github.com/rileyhanus/texedbook.git`
 
@@ -62,27 +62,8 @@ Follow these steps to set up `texedbook` for use on your computer.
 
 1. Run texedbook
 
-    `python run.py ./path/to/latex/project/folder`
+    `python make_texedbook.py ./path/to/latex/project/directory/`
  
-1. Open any of the the templated html files to view the html-based learning environment.
+1. Open `.build/output/templated_main.html` files to view the output webpage
 
-
-## Editing your project:
-
-After making changes to any of your .tex files, simply save your changes and run texedbook.
-
-
-## Quarks
-
-1. Since equations and equation referenceing in TexEdBook is done with Mathjax, and each chapter is compiled into its own htlm page, references can only be made to equation within the chapter. For example, if you label an equation in Chapter 1 
-
-    `/label{eq:ch1-equation}`
-
-    this can only be referenced using 
-
-    `/mjref{eq:ch1-equation}` 
-
-    within Chapter 1. It will through '???' in the rendered html if that same mjref is used in Chapter 2.
-
-    To reference equations between Chapters, you might consider referencing the section/subsection the equation is contained in (to provide a hyperlink), and explicitly stating the equation/variable of interest.
     

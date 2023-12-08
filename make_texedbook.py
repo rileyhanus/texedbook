@@ -132,8 +132,8 @@ def clean_html(soup):
     return BeautifulSoup(soup, features="lxml")
 
 def template_ebook(book_epub, sidebar_element_html, sidebar_html, template_html, css):
-    print("Initializing .build/output/")
-    target = os.path.join('.build', 'output')
+    print("Initializing output/")
+    target = 'output'
     if os.path.exists(target):
         shutil.rmtree(target)
     os.makedirs(target)
@@ -224,23 +224,23 @@ def template_ebook(book_epub, sidebar_element_html, sidebar_html, template_html,
     list_of_htmls = make_list_of_htmls()
     insert_htmls(templated_soup, list_of_htmls)
 
-    with open(".build/output/templated_" + "main.html", "w") as file:
-        print("\nWriting " + ".build/output/templated_" + "main.html")
+    with open("output/templated_" + "main.html", "w") as file:
+        print("\nWriting " + "output/templated_" + "main.html")
         file.write(str(templated_soup))
 
-    print("\nCopying figures, css, and pdf to ./build/output ")
+    print("\nCopying figures, css, and pdf to output ")
     # Copy figure files to the ./output/ directory
-    if os.path.exists(".build/output/figures"):
-        shutil.rmtree(".build/output/figures")
+    if os.path.exists("output/figures"):
+        shutil.rmtree("output/figures")
     
     if os.path.exists(".build/latex/figures"):
-        shutil.copytree(".build/latex/figures", ".build/output/figures")
+        shutil.copytree(".build/latex/figures", "output/figures")
     
-    # Copy css into .build/output/
-    shutil.copy(css, '.build/output')
+    # Copy css into output/
+    shutil.copy(css, 'output')
 
-    # Copy the latex compiled pdf into .build/output 
-    shutil.copy('.build/latex/main.pdf', '.build/output')
+    # Copy the latex compiled pdf into output 
+    shutil.copy('.build/latex/main.pdf', 'output')
 
 
 if __name__ == "__main__":
