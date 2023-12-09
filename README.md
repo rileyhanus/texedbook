@@ -57,11 +57,11 @@ Follow these steps to set up `texedbook` for use on your computer.
 
     `pip install -r requirements.txt`
 
-1. Test
+1. Test (htlatex will throw some benign errors which you can ignore)
 
     `python make_texedbook.py ./authors_guide`
 
-1. View by opening `./output/templated_main.html`
+1. View result by opening `./output/templated_main.html`
 
 
 ### Running texedbook
