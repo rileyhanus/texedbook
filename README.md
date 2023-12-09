@@ -57,13 +57,21 @@ Follow these steps to set up `texedbook` for use on your computer.
 
     `pip install -r requirements.txt`
 
+1. Test
+
+    `python make_texedbook.py ./authors_guide`
+
+1. View by opening `./output/templated_main.html`
+
+
 ### Running texedbook
-1. Make sure your main.tex document is finished and compiles without errors.  To Compile main.tex, I recommend using VSCode with the 'Tex Workshop' plugin installed. In VSCode you can compile by simply saving any .tex file in your project.
+1. Make sure your main.tex document is finished and compiles without major errors using `latexmk`. 
 
 1. Run texedbook
 
     `python make_texedbook.py ./path/to/latex/project/directory/`
+`
  
-1. Open `.build/output/templated_main.html` files to view the output webpage
+1. Open `./output/templated_main.html` files to view the output webpage
 
     
