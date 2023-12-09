@@ -272,6 +272,7 @@ if __name__ == "__main__":
         '''
         source venv/bin/activate
         cd .build/latex
+        latexmk main.tex
         tex4ebook -c ../../aux/config.cfg main.tex
         cd ../..
         ''')

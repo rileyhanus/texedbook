@@ -15,11 +15,11 @@
 \maketitle
 
 \begin{abstract}
-The \verb'texedbook' code base is a tool for publishing articles, educational content, and textbooks online without the need to learn html, css, and javascript. The author writes and compiles the content in latex using \verb'latexmk' and (after following the set-up instructions in the \verb'README.md') runs 
+The \verb'texedbook' code base is a tool for publishing articles, educational content, and textbooks online without the need to learn html, css, and javascript. The author writes the content following this guide, compiles it using \verb'latexmk', and after following the set-up instructions in the \verb'README.md' runs 
 \begin{verbatim}
 python make_texedbook.py ./path/to/latex/project/directory
 \end{verbatim}
-which generates a collection of html and css files in \verb'.build/output/' that can be directly published online. The product is a computer and mobile friendly webpage, with all document features preserved and all content embedded.  In addition to supporting most of the native latex features, \verb'texedbook' provides tools for embedding digital and interactive content such as videos, quizzes, code editors and compilers, etc. 
+which generates a collection of html and css files in \verb'./output/' that can be directly published online. The product is a computer and mobile friendly webpage, with all document features preserved and all content embedded.  In addition to supporting most of the native latex features, \verb'texedbook' provides tools for embedding digital and interactive content such as videos, quizzes, code editors and compilers, etc. 
 
 This article acts as an author's guide to \verb'texedbook' (\verb'tex': Latex based, \verb'ed': education focused, \verb'book': classic textbook functionality maintained) and will demonstrate the document features that are explicitly supported, and the specific way they must be used to ensure a clean output html page.  First, the native latex capabilities will be demonstrated including figures, equations, tables, cross-referencing, citations, etc. Then the \verb'texedbook' specific features will be presented which allow the author to embed digital content (anything that can be contained in an iframe) into the resulting webpage straight from the latex document. 
 \end{abstract}
