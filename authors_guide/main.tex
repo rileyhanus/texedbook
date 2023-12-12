@@ -127,7 +127,7 @@ Code syntax can be displayed using the verbatim environment native to latex
 \end{verbatim}
 This will render in the html as a displayed code block that scrolls if a text overflow happens. This way readers will never miss the syntax they need, no matter the size of thier screen.
 
-Code can be written in-line using the \verb'\verb' function. This function comes from the \verb'verbatim' package and is unique in that it doesn't use the curly brackets for its argument. It takes the first non-letter character as the open argument and looks for that same character again to close the argument. I typically use \verb_\verb'code here'_. This is meant for short (one word) expressions; if the content is too long it will be cut off. For long syntax use the \verb'\begin{verbatim}' environment.    
+Code can be written in-line using the \verb'\verb' function. This function comes from the \verb'verbatim' package and is unique in that it doesn't use the curly brackets for its argument. As implemented here, it cannot be used as an argurment in most commands such as, \verb'\section{}' or \verb'\caption{}'. It takes the first non-letter character as the open argument and looks for that same character again to close the argument. I typically use \verb_\verb'code here'_. This is meant for short (one word) expressions; if the content is too long it will be cut off. For long syntax use the \verb'\begin{verbatim}' environment.    
 
 \subsection{Cross-referencing and hyperlinks}
 Cross-referencing can be used as normal in latex and all the hyperlinking functionality will be preserved in the html. For example, Section \ref{sec:latexfeatures}, Table \ref{table:example}, and Figure \ref{fig:example}. The only important exception is Equations where the \verb'\mjref' command must be used such that mathjax can properly label and cross-reference equations locally in the html page using javascript (see Section \ref{sec:equations}).
@@ -162,12 +162,22 @@ The \verb'\InsertIframe' command provided in \verb'texedbook_envs.tex' allows th
                   {type of digital content}
 \end{verbatim}  
 
-Below is this command in practice, where a YouTube video from MIT's OpenCourseWare is embedded. As you can see in the compiled pdf, a fancy \textit{Digital Content} box and hyperlink are rendered. In the html output, the iframe is properly embedded.
+Below is this command in practice, where a YouTube video from MIT's OpenCourseWare, a Google Form quiz, and a Spreadsheet are all embedded. As you can see in the compiled pdf, a fancy \textit{Digital Content} box and hyperlink are rendered. In the html output, the iframe is properly embedded.
 
 \InsertIframe{<iframe width="560" height="315" src="https://www.youtube.com/embed/zqtx0gA5K2s?si=nLdAne1jF961EMxx" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>}
              {Intro to Copyright Law}
              {MIT OpenCourseWare 6.912, Lecture 1}
              {Video} 
+
+\InsertIframe{<iframe src="https://docs.google.com/forms/d/e/1FAIpQLSdVIM1ADBswXlDN_zVleaTG5WZIaAvu9jbqHfdzjQj1-P5Qzg/viewform?embedded=true" width="640" height="965" frameborder="0" marginheight="0" marginwidth="0">Loading…</iframe>}
+             {Example Quiz}
+             {Test your understanding of texedbook}
+             {Google Form}
+
+\InsertIframe{<iframe width="700" height="700" src="https://docs.google.com/spreadsheets/d/e/2PACX-1vSetBVN8WQCDDkgH3AKQmFDzr1ViREDRrD3qhE2VWz2rTvhtis6bOTxQoAmJbZgL2k26W5A117_O7vG/pubhtml?gid=0&amp;single=true&amp;widget=true&amp;headers=false"></iframe>}
+             {Google Sheet}
+             {GOOG stock price summary}
+             {Spreadsheet}
 
 \subsection{Special embed commands}
 There also may be scenerios when the embed code is not provided. This is the case for videos hosted on the course management platform Panopto. In this case simply replacing the `Video' with `Embed' in the url and placing it in a generic <iframe> element embeds the video properly. Therefore, special commands are provided which generates the <iframe> for the author with the following syntax. See all the special commands provided in \verb'texedbook_envs.tex'. An example for a Panopto video is given here.

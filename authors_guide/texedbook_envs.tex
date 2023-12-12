@@ -42,7 +42,7 @@ frametitleaboveskip=\dimexpr-\ht\strutbox\relax
 \newcommand{\iframeurl}[2]{
     \parseiframe{#1}
     \foreachitem \i \in \iframelist{
-        \IfSubStringInString{://www.}{\i}{ \let\result=\i}{}
+        \IfSubStringInString{://}{\i}{ \let\result=\i}{}
     }
     \href{\result}{#2}
 }

@@ -6,6 +6,11 @@ a {
   scroll-margin: 50px;
 }
 
+.caption{
+  text-align: center;
+  font-style: italic;
+}
+
 .prose hr {
   border-top-width: 0;
 }
