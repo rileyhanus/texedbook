@@ -49,24 +49,23 @@ div[class*='cmtt'], span[class*='cmtt'] {
 
 }
 
-.abstracttitle{
+.abstracttitle, .chapterHead, .sectionHead, .likesectionHead, .subsectionHead, .likesubsectionHead,
+.subsubsectionHead, .likesubsubsectionHead{
   font-family: sans-serif;
+  font-weight: 600
 }
 
-.chapterHead {
-  font-family: sans-serif;
+pre {
+  overflow: auto;
+  padding: 1rem;
+  border-radius: 0.5rem;
+  position: relative;
 }
 
-.sectionHead {
-  font-family: sans-serif;
-}
-
-.subsectionHead {
-  font-family: sans-serif;
-}
-
-.likesectionHead{
-  font-family: sans-serif;
+pre copy-code-button {
+  position: absolute;
+  top: 0.5rem;
+  right: 0.5rem;
 }
 
 img.math {

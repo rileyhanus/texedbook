@@ -44,7 +44,11 @@ def make_list_of_iframes():
     flatten_tex()
     with open('.build/latex/main-flat.tex', 'r') as file:
         main_flat = file.read()
-    list_of_iframes = re.findall(r'\\InsertIframe{(.*?)}', main_flat)
+    list_of_iframes_raw = re.findall(r'\\InsertIframe{(.*?)}', main_flat)
+    list_of_iframes = []
+    for iframe in list_of_iframes_raw:
+        clean_iframe = iframe.replace("\%", "%")
+        list_of_iframes.append(clean_iframe)
     print("\nList of iframes:")
     print(list_of_iframes)
     return list_of_iframes
@@ -244,7 +248,7 @@ def template_ebook(book_epub, sidebar_element_html, sidebar_html, template_html,
 
 
 if __name__ == "__main__":
-    print(figlet_format("run.py"))
+    print(figlet_format("texedbook"))
 
     # Check if path to latex dir was given
     if len(sys.argv) < 2:
@@ -276,7 +280,7 @@ if __name__ == "__main__":
         tex4ebook -c ../../aux/config.cfg main.tex
         cd ../..
         ''')
-    print(figlet_format("make-texedbook.py"))
+    print(figlet_format("templating..."))
 
     template_ebook(".build/latex/main-epub/main.epub", 
                     "./templates/sidebar_element.html",

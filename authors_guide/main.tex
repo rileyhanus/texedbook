@@ -71,11 +71,9 @@ The \verb'[t]' places the figure at the top of a page in the pdf, and does nothi
 \begin{figure}[t]
     \centering
     \includegraphics[width=0.99\textwidth, keepaspectratio]{figures/fig.pdf}
-    \caption{Example figure. Since the convention for texedbook is for figures to span the text width, whitespace added to control size of the image.}
+    \caption{Example figure. Since the convention for texedbook is for figures to span the text width, whitespace is added to control size of the image.}
     \label{fig:example}
 \end{figure}
-
-
 
 \subsection{Equations} \label{sec:equations}
 Equations are an inherently tricky problem for digital publishing. The core of the problem lies in the fact that html was designed around the standard alphanumeric alphabet, and math requires a wider range of complex symbols and typesetting. The default usage of \verb'texedbook' leverages \verb'mathjax', allowing all the native latex equations to be reliably reproduced in the html output.
@@ -85,7 +83,7 @@ In line equations can be included $n\lambda=2d \sin \theta$, as well as displaye
     n\lambda=2d \sin \theta.
     \label{eq:braggslaw}
 \end{equation}
-Cross-referencing equations is done using the \verb'\mjref{}' function provided in \verb'texedbook_envs.tex'. For example, Eq. \mjref{eq:braggslaw} is Bragg's Law which is commonly used to find diffraction conditions of light of wavelength $\lambda$ interacting with a crystal with lattice spacing $d$ at an incident angle of $\theta$. The \verb'\mjref{}' function simply substitutes \verb'\ref{}' when the latex is compiled. However, when \verb'tex4ebook' converts the project to html, the \verb'aux/config.cfg' file tells \verb'tex4ebook' to insert \verb'\eqref' in place of all \verb'\mjref's, which \verb'mathjax' knows to look for in the html and use for equation numbering and cross-referencing. 
+Cross-referencing equations is done using the \verb'\mjref' function provided in \verb'texedbook_envs.tex'. For example, Eq. \mjref{eq:braggslaw} is Bragg's Law which is commonly used to find diffraction conditions of light of wavelength $\lambda$ interacting with a crystal with lattice spacing $d$ at an incident angle of $\theta$. The \verb'\mjref' function simply substitutes \verb'\ref' when the latex is compiled. However, when \verb'tex4ebook' converts the project to html, the \verb'aux/config.cfg' file tells \verb'tex4ebook' to insert \verb'\eqref' in place of all \verb'\mjref's, which \verb'mathjax' knows to look for in the html and use for equation numbering and cross-referencing. 
 
 \subsection{Tables}
 Tables are inherently difficult to write in latex. \href{https://www.tablesgenerator.com/}{Tables Generator} is a great tool for generating latex code for tables. Note that the table styling in the html output is different then the latex output. 
@@ -143,10 +141,10 @@ The native bibliography features are maintained. For example, one can cite an ar
 \section{Texedbook features}
 This section will demonstrate special \verb'texedbook' environments and commands that allow the author to embed digital content directly from the latex code into the resulting webpage. There are several commands provided in \verb'texedbook_envs.tex' to achieve this. \verb'\InsertIframe' is specifically for iframes (explained in Section \ref{sec:iframes}) and \verb'\InsertHTML' is more generic and allows the author to include any html element they wish. The arguements the author inputs tells \verb'texedbook' what to render in the pdf as well as what to template into the output html. 
 
-In practice, \verb'texedbook' searches the latex project for the specific pattern \verb'\InsertXXX{...}' and grabs the arguements needed to template the html into the final webpage. Therefore, you will see an extra space before the open curly bracket when displaying the latex code syntax for these functions in this document. This avoids unintentionally triggering the templating functions in \verb'make_texedbook.py', and insures that this Author's Guide works properly. The author should also \textbf{avoid unintentionally triggering the templating functions by writing the exact synax for these commands in places it doesn't belong (e.g. in comments, verbatim enviroments, etc.).}
+In practice, \verb'texedbook' searches the latex project for the specific pattern \verb'\InsertXXX{...}' and grabs the arguements needed to template the html into the final webpage. Therefore, the command and first arguement (e.g.) \verb'\InsertXXX{...}' must be occupy one line in the latex code. In addition, you will see an extra space before the open curly bracket when displaying the latex code syntax for these functions in this document. This avoids unintentionally triggering the templating functions in \verb'make_texedbook.py', and insures that this Author's Guide works properly. The author should also \textbf{avoid unintentionally triggering the templating functions by writing the exact synax for these commands in places it doesn't belong (e.g. in comments, verbatim enviroments, etc.).}
 
 \subsection{Iframes} \label{sec:iframes}
-An inline frame, or iframe, is an html element that loads a webpage within another webpage. When you see a YouTube video on a website other than www.youtube.com, it is likely being placed their using an iframe. However, as you can infer from the definition, iframes are extremely versatile and can be used for far more than embedding YouTube videos. Essentially, anything online can be embedded using an iframe. Often times there will be a \textit{share} button next to a sharable feature on a webpage, and one of the sharing options can be \textit{embed}, or have the \verb'<>' symbol. This option will provide a piece of html code for the iframe that can be copy and pasted. An example of an html iframe is given below. 
+An inline frame, or iframe, is an html element that loads a webpage within another webpage. For example, when you see a YouTube video on a website other than www.youtube.com, it is likely being placed their using an iframe. However, as you can infer from the definition, iframes are extremely versatile and can be used for far more than embedding YouTube videos. Essentially, anything online can be embedded using an iframe. Often times there will be a \textit{share} button next to a sharable feature on a webpage, and one of the sharing options is Often \textit{embed}, or have the \verb'<>' symbol. This option will provide a piece of html code for the iframe that looks something like this, which can be copy and pasted. 
 
 \begin{verbatim}
     <iframe width="560" height="315" 
@@ -154,30 +152,65 @@ An inline frame, or iframe, is an html element that loads a webpage within anoth
             title="YouTube video player" ...></iframe>
 \end{verbatim}
 
+Importantly, if there are any \verb'%' symbols in the html code, which is very common, you will need to add a backslash to `escape' the character. In this way your latex code should have \verb'\%' in place of all \verb'%'. This will avoid the \verb'%' symbol in the html from inadvertantly commenting out a portion of your command. \verb'texedbook' will fix the html code when templating.  
+
 The \verb'\InsertIframe' command provided in \verb'texedbook_envs.tex' allows the author to embed any iframe into the output html, directly from the latex project. The pdf will display a \textit{digital content box} containing a hyperlink to the source URL contained in the iframe code. The output html will contain the iframe properly embedded. There are four arguments for \verb'\InsertIframe', and they are detailed here.
 \begin{verbatim}
-    \InsertIframe {<iframe ...></iframe>}
+    \InsertIframe {<iframe ...></iframe> ('%'s replaced with '\%')}
                   {hyperlink display text}
                   {caption}
                   {type of digital content}
 \end{verbatim}  
 
-Below is this command in practice, where a YouTube video from MIT's OpenCourseWare, a Google Form quiz, and a Spreadsheet are all embedded. As you can see in the compiled pdf, a fancy \textit{Digital Content} box and hyperlink are rendered. In the html output, the iframe is properly embedded.
+Below is this command in practice various free tools are embedded. As you can see in the compiled pdf, a fancy \textit{Digital Content} box and hyperlink are rendered. In the html output, the iframe is properly embedded.
+
+\subsubsection{YouTube}
+To embed a YouTube video, go to the video you wish to embed. Click the \textit{Share} button, then \textit{Embed}, then \textit{Copy}. The iframe html code is now copied to your clipboard. Paste it into the first argument of the \verb'\InsertIframe' command, and fill in the rest of the arguements. Remember to replace all \verb'%' that may be in the html code with \verb'\%'.
 
 \InsertIframe{<iframe width="560" height="315" src="https://www.youtube.com/embed/zqtx0gA5K2s?si=nLdAne1jF961EMxx" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>}
              {Intro to Copyright Law}
              {MIT OpenCourseWare 6.912, Lecture 1}
              {Video} 
 
+\subsubsection{Python coding environment}
+There now exists a wonderful tool for running python within a web browser called \href{https://jupyterlite.readthedocs.io/en/stable/#}{JupyterLite}. Historically, python needed to be run locally on your computer, or if the code was being edited and ran in a web browser then it was actually compiled on a server somewhere with a python installation, which adds cost. With JupyterLite, a python coding enviroment, which runs a read-eval-print loop (REPL) locally in your browser, can be simply added using the following iframe. Note, the \verb'%' is aready replaced with \verb'\%' such that this exact html code can be pasted into the first arguement of the \verb'\InsertIframe' command.
+\begin{verbatim}
+    <iframe src="https://jupyterlite.github.io/demo/repl/index.html?kernel=python&toolbar=1&theme=JupyterLab Dark" width="100\%" height="500px"></iframe>
+\end{verbatim}
+Here, is this python REPL iframe in practice, and an example prompt.
+
+Generate two arrays containing 10 random numbers each and plot one along the x-axis and the other along the y-axis.
+\begin{verbatim}
+    import numpy as np
+    import matplotlib.pyplot as plt
+    
+    x = np.random.rand(10)
+    print(x)
+    y = np.random.rand(10)
+    print(y)
+    plt.plot(x,y, 
+             linewidth=0, 
+             marker="o", 
+             color="black")
+    plt.show()
+\end{verbatim}
+
+\InsertIframe{<iframe src="https://jupyterlite.github.io/demo/repl/index.html?kernel=python&toolbar=1&theme=JupyterLab Dark" width="100\%" height="500px"></iframe>}
+              {Python Coding Eviroment}
+              {An embedded Jupyter Notebook running python using JupyterLite}
+              {JupyterLite}
+
+
+\subsubsection{Google Form Quiz}
+Google as a suite of free web applications. Google Forms is a great tool for making and administering quizzes. See this concise video for creating a Google Form Quiz.
+
+\InsertIframe{<iframe width="560" height="315" src="https://www.youtube.com/embed/Pdt8Vv7-3Xk?si=C36HazkC1eybzlfo" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>}{Google From Quiz Tutorial}{A video explaining how to create a quiz in Google Forms with a focus on use in the classroom.}{Video}
+
+To embed this quiz into your project, click the \textit{Share} button, the the \verb'<>' icon, then copy the iframe code and paste it into the first arguement of the \verb'\InsertIframe' command. A similar process can be used to embed other Google web applications into your project.
 \InsertIframe{<iframe src="https://docs.google.com/forms/d/e/1FAIpQLSdVIM1ADBswXlDN_zVleaTG5WZIaAvu9jbqHfdzjQj1-P5Qzg/viewform?embedded=true" width="640" height="965" frameborder="0" marginheight="0" marginwidth="0">Loading…</iframe>}
              {Example Quiz}
              {Test your understanding of texedbook}
              {Google Form}
-
-\InsertIframe{<iframe width="700" height="700" src="https://docs.google.com/spreadsheets/d/e/2PACX-1vSetBVN8WQCDDkgH3AKQmFDzr1ViREDRrD3qhE2VWz2rTvhtis6bOTxQoAmJbZgL2k26W5A117_O7vG/pubhtml?gid=0&amp;single=true&amp;widget=true&amp;headers=false"></iframe>}
-             {Google Sheet}
-             {GOOG stock price summary}
-             {Spreadsheet}
 
 \subsection{Special embed commands}
 There also may be scenerios when the embed code is not provided. This is the case for videos hosted on the course management platform Panopto. In this case simply replacing the `Video' with `Embed' in the url and placing it in a generic <iframe> element embeds the video properly. Therefore, special commands are provided which generates the <iframe> for the author with the following syntax. See all the special commands provided in \verb'texedbook_envs.tex'. An example for a Panopto video is given here.
