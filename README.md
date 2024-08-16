@@ -3,7 +3,7 @@
 `tex`: Latex based. `ed`: Education focused. `book`: Classic textbook functionality maintained.
 
 ## Overview:
-This is code base enables authors to publish latex based articles, educational content, and textbooks online without the need to learn html, css, and javascript. Most importantly, any website element (e.g. iframe or custom html element) can be embedded in the output html page directly from the latex code using custom commands provided in this package. The author compiles the publication in latex (using `latexmk`) following the conventions outlined in [Author's Guide to Textbook](./authors_guide/main.pdf), and then runs
+This is codebase enables authors to publish latex based articles, educational content, and textbooks online without the need to learn html, css, and javascript. Most importantly, any website element (e.g. iframe or custom html element) can be embedded in the output html page directly from the latex code using custom commands provided in this package. The author compiles the publication in latex (using `latexmk`) following the conventions outlined in [Author's Guide to Textbook](./authors_guide/main.pdf), and then runs
 
 `python make_texedbook.py ./path/to/latex/project/directory/`
 
